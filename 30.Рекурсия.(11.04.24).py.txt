@@ -1,0 +1,73 @@
+# def factorial(n):
+#     if n <= 0:
+#         return 1
+#     print (n)
+#     return n * factorial(n - 1)
+
+# print(factorial(5))
+#######################################################
+# def deg(number, degree):
+#     if degree == 0:
+#         return 1
+#     return number * deg(number, degree - 1)
+
+# n1 = int(input('Введите число:\n>'))
+# n2 = int(input('Введите степень:\n>'))
+# print(f'Число {n1} в степени {n2} = {deg(n1, n2)}')
+########################################################
+# def summ(number1, number2):
+#     if number1 == number2:
+#         return number1
+#     print('number1=',number1,'number2=',number2,'сумма=',number1+number2)
+#     return number1 + summ(number1 + 1, number2)
+
+# a = int(input('Введите первое число:\n>'))
+# b = int(input('Введите второе число:\n>'))
+# print(f'Сумма чисел в диапазоне от {a} до {b} = {summ(a, b)}')
+########################################################
+# def line(number, symbol):
+#     if number == 1:
+#         return symbol
+#     return symbol + (line((number - 1), symbol))
+
+# n = int(input('Введите число звёзд:\n>'))
+# s = input('Введи символ:\n>')
+# print(line(n, s))
+########################################################
+# Напишите рекурсивную функцию, которая принимает список из 
+# 100 целых чисел, полученных случайным образом, и находит
+# позицию, с которой начинается последовательность из 10
+# чисел, сумма которых минимальна.
+import random
+
+def min10(lst, index, min):
+    summ = 0
+
+    
+    for i in range(index, index + 10):
+        summ += lst[i]
+    
+    if summ < min:
+        min = summ
+        
+    min10(lst, index + 10, min)
+# print(f'сейчас индекс: {index}')
+    # if index == len(lst):
+    #     print(f'выхожу: {index}')
+    #     return min
+    # for i in range(index, index + 10):
+    #     summ += lst[i]
+    #     print(summ)
+    # print(f'увеличиваем индекс: {index}')
+    # return index + 1
+  
+
+lst = []
+number = 100
+
+for i in range (number):
+    lst.append(random.randint(0,100))
+    #print(f'lst[{i}] = {lst[i]}')
+print(f'Сгенерирован список:\n{lst}')
+
+print ('Индекс с которого начинается минимальная сумма 10 чисел:', min10(lst,0,lst[0]))

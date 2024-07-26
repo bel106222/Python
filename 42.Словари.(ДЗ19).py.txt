@@ -1,0 +1,94 @@
+# Задание 2
+# Создайте программу «Англо-французский словарь».
+# Нужно хранить слово на английском языке и его перевод
+# на французский. Требуется реализовать возможность 
+# добавления, удаления, поиска, замены данных. Используйте
+# словарь для хранения информации.
+print('ЗАДАНИЕ 2')
+dictionary = {'aback' : 'étonné',
+              'abacus' : 'boulier',
+              'abandon' : 'renoncer',
+              'abandoned' : 'abandonné',
+              'abandoning' : 'abandonnant',
+              'abandonment' : 'tâche',
+              'abandons' : 'abandonne',
+              'abase' : 'abaisser',
+              'abasement' : 'humiliation',
+              'abashed' : 'confuse',
+              'abashedly' : 'honteux',
+              'abashes' : 'penaud',
+              'abashment' : 'embarras'}
+
+def menu(dict):
+    print('\nАнгло-французский словарь:')
+    count = 1
+    for i in dict:
+        print(f'{count}. {i} - {dict[i]}')
+        count += 1
+    print('\nМЕНЮ:\n1. Добавить.\n2. Удалить.\n3. Изменить.\n4. Поиск.\n5. Выход.')
+
+    choice = int(input('>'))
+    if choice == 1:
+        add(dict)
+    elif choice == 2:
+        delete(dict)
+    elif choice == 3:
+        change(dict)
+    elif choice == 4:
+        search(dict)
+    elif choice == 5:
+        print('Пока.')
+        return False
+    else:
+        print('Введите число от 1 до 5.')
+
+    return True
+
+def new_word(dict, word):
+    question = input('Такого слова нет. Хотите добавить? (y/n):\n>')
+    if question == 'y':
+        translation = input(f'Введите перевод слова {word} :\n>')
+        dict[word] = translation
+    
+def add(dict):
+    key = input('Введите английское слово: ')
+    value = input('Введите его французский перевод: ')
+    dict[key] = value
+
+def delete(dict):
+    key = input('Введите английское слово, которое нужно удалить: ')
+    find = False
+    for i in dict:
+        if i == key:
+            del dict[key]
+            find = True
+            break
+    if find == False:
+        new_word(dict, key)
+
+def change(dict):
+    key = input('Введите английское слово, которое нужно изменить: ')
+    find = False
+    for i in dict:
+        if i == key:
+            dict[key] = input('Введите его перевод: ')
+            find = True
+            break
+    if find == False:
+        new_word(dict, key)
+
+def search(dict):
+    key = input('Введите английское слово, которое нужно найти: ')
+    find = False
+    for i in dict:
+        if i == key:
+            print(f'найдено {key}, переводится как: {dict[key]}')
+            find = True
+            break
+    if find == False:
+        new_word(dict, key)    
+
+cont = True
+while cont:
+    cont = menu(dictionary)
+############################################################################

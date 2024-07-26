@@ -1,0 +1,114 @@
+class human():
+
+    def __init__(self,name, age):
+        self.name = name
+        self.age = age
+
+    def say(self):
+        print('Меня зовут', self.name, 'мой возраст', self.age, 'лет')
+
+class student(human):
+
+    def __init__(self, name, age, school):
+        super().__init__(name, age)
+        self.school = school
+        self.discipline = []
+
+    def say_student(self):
+        print(f'Меня зовут {self.name}, мой возраст {self.age} лет, я учусь в {self.school}')
+
+    def input_discipline(self):
+        self.discipline.append(input(f'Введите название {len(self.discipline)+1} предмета: '))
+
+    def get_discipline(self):
+        print ('Я изучаю:')
+        for i in self.discipline:
+            print(i)
+
+class teacher(human):
+
+    def __init__(self, name, age, predmet):
+        super().__init__(name, age)
+        self.predmet = predmet
+
+    def toTeach(self):
+        print(f'Я преподаю {self.predmet}')
+
+class director(teacher, human):
+    
+    def __init__(self, name, age, predmet, plase):
+        super().__init__(name, age, predmet)
+        self.plase = plase
+
+    def toDirect(self):
+        print(f'Я директор {self.plase} и преподаю {self.predmet}')
+
+st1 = student('Вася', 15, 'СШ №9')
+st1.say_student()
+st1.input_discipline()
+st1.get_discipline()
+dir1 = director('Петя', 45, 'матан', 'школа')
+dir1.toDirect()
+dir1.say()
+###########################################################################
+# class Animal():
+
+#     def __init__(self, type):
+#         self.type = type 
+
+#     def whayDoYouWant(self):
+#         print(f'Я {self.type} хочу есть!')
+    
+#     def make_sound(self, sound):
+#         print('Я говорю', sound)
+
+# class Dog(Animal):
+
+#     def __init__(self, name):
+#         super().__init__('Dog')
+#         self.name = name
+
+#     def wof(self):
+#         super().make_sound('Гав')
+    
+# class Labrador(Dog):
+
+#     def __init__(self, name, color):
+#         super().__init__(name)
+#         self.color = color
+
+#     def sit(self):
+#         print('Я сел')
+
+# class Cat(Animal):
+
+#     def __init__(self, name):
+#         super().__init__('Cat')
+#         self.name = name
+#         self.mouse = 0
+
+#     def meow(self):
+#         super().make_sound('Мяу')
+
+#     def get_mouse(self):
+#         self.mouse += 1
+#         print(f'Я ловлю {self.mouse} мышь.')
+
+# class Sfinx(Cat):
+
+#     def __init__(self, name, color):
+#         super().__init__(name)
+#         self.color = color
+
+#     def sit(self):
+#         print('Cам садись!')
+    
+# an1 = Labrador(name='Шарик', color='Белый')
+# an1.wof()
+
+# an2 = Sfinx(name='Степан', color='Черный')
+# an2.whayDoYouWant()
+# an2.meow()
+# an2.sit()
+# an2.get_mouse()
+###########################################################################

@@ -1,0 +1,57 @@
+# class Person:
+#     __age = 15 #private
+
+# pr1 = Person()
+# print(pr1._Person__age) # подчёркивает как ошибку, но работает
+################################################################
+# Задание
+# Написать класс животного, который имеет аргументы по умолчанию и 
+# приватные атрибуты или методы.
+class Animal:
+    
+    def __init__(self, name, type, age = None):
+        self.name = name
+        self.type = type
+        self.__age = age # приватный аргумент
+        self.__counter = 0 # приватный аргумент
+        
+    def __str__(self):
+        return f"Имя: {self.name}, возраст: {self.__age}, вид: {self.type}"
+
+    def __give_voise(self):
+        if self.type == "Кошка":
+            print("Мяу")
+        else:
+            print("Гав")
+
+    def set_age(self, age):
+        self.__age = age
+
+    @property # декоратор
+    def age(self):
+        self.__counter += 1
+        if self.__counter > 2:
+            print("Отстань, надоел!")
+            return 0
+        else:
+            return self.__age
+
+en1 = Animal("Мурзик", "Кошка")
+en2 = Animal("Шарик", "Собака")
+# print(en1.__age) так - не даст
+print(en1._Animal__age) # а так - даст
+en1._Animal__age = 5
+print(en1)
+en1.set_age(10)
+print(en1)
+# en1.__give_voise() так - не даст
+en1._Animal__give_voise() # а так - даст
+en2._Animal__give_voise()
+print(en2.age) # использование функции, как переменной (через декоратор)
+print(en2.age)
+print(en2.age)
+#################################################################
+# /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+# Задание 2
+# Написать класс животного, которое начинает злиться, если вы
+# слишком часто спрашиваете его возраст

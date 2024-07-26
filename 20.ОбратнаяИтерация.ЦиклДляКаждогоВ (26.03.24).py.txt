@@ -1,0 +1,29 @@
+#################################################################
+# stn = input('Введи сторку:\n>')
+# for i in range(len(stn)-1, -1, -1):
+#     print(stn[i], end='')
+#################################################################
+# counNum = 0
+# counLet = 0
+# countSpc = 0
+# countSmb = 0
+# stn = input('Введи сторку:\n>')
+# for i in range(len(stn)):
+#     if stn[i].isnumeric():
+#         counNum += 1
+#     elif stn[i].isalpha():
+#         counLet += 1
+#     elif stn[i].isspace():
+#         countSpc += 1
+#     else:
+#         countSmb += 1
+# print(f'Количество цифр: {counNum}\nКоличество букв: {counLet}\nКоличество пробелов: {countSpc}\nКоличество других символов: {countSmb}')
+#################################################################
+strn = input('Введи сторку:\n>')
+symb = input('Введи символ:\n>')
+count = 0
+for i in strn:
+    if i == symb:
+        count += 1
+print(f'Количество символов {symb} в этой строке равно {count}')
+#################################################################

@@ -1,0 +1,100 @@
+# import random
+# max = 0
+# min = 0
+# max_ind = 0
+# min_ind = 0
+# lst = []
+# sum_neg = 0
+# sum_che = 0
+# sum_nch = 0
+# mlt_3 = 1
+# mlt_min_max = 1
+# sum_btn = 0
+# lst_pos = 0
+# fst_pos = 0
+
+# count = int(input('Введите количество элементов списка:\n>'))
+
+# for i in range (count):
+    
+#     lst.append(random.randint(-50, 50))
+
+#     if fst_pos == 0:
+#         if lst[i] >= 0:
+#             fst_pos = i
+        
+#     if lst[i] > 0:
+#         lst_pos = i
+    
+#     if lst[i] < 0:
+#         sum_neg += lst[i]
+
+#     if lst[i] % 2 == 0:
+#         sum_che += lst[i]
+#     else:
+#         sum_nch += lst[i]
+
+#     if i % 3 == 0 and i != 0:
+#         mlt_3 *= lst[i]
+
+#     if lst[i] >= max:
+#         max = lst[i]
+#         max_ind = i
+
+#     if lst[i] <= min:
+#         min = lst[i]
+#         max_ind = i
+
+# print(f'Позиция первого положительного числа: {fst_pos}')
+# print(f'Позиция последнего положительного числа: {lst_pos}')
+# #print(f'Позиция минимального числа: {min_ind}')
+# #print(f'Позиция максимального числа: {max_ind}')
+
+# for i in range(len(lst)):
+
+#     if i >= fst_pos and i <= lst_pos:
+#         sum_btn += lst[i]
+    
+#     if min_ind < max_ind:
+#         if lst[i] >= min and lst[i] <= max:
+#             mlt_min_max *= lst[i]    
+#     else:
+#         if lst[i] >= max and lst[i] <= min:
+#             mlt_min_max *= lst[i]
+
+# print(f'Сгенерирован список: {lst}')
+# print(f'Сумма отрицательных чисел: {sum_neg}')
+# print(f'Сумма чётных чисел: {sum_che}')
+# print(f'Сумма нечётных чисел: {sum_nch}')
+# print(f'Произведение элементов, c индексами кратными 3: {mlt_3}')
+# print(f'Произведение чисел между max и min: {mlt_min_max}')
+# print(f'Сумма чисел между первым и последним положительным числов: {sum_btn}')
+###############################################################################
+import random
+lst = []
+lst_che = []
+lst_nch = []
+lst_neg = []
+lst_pos = []
+
+count = int(input('Введите количество элементов списка:\n>'))
+
+for i in range (count):
+
+    lst.append(random.randint(-50, 50))
+    
+    if lst[i] % 2 == 0:
+        lst_che.append(lst[i])
+    else:
+        lst_nch.append(lst[i])
+
+    if lst[i] < 0:
+        lst_neg.append(lst[i])
+    else:
+        lst_pos.append(lst[i])
+
+print(f'Сгенерирован список: {lst}')
+print(f'Список чётных чисел: {lst_che}')
+print(f'Список нечётных чисел: {lst_nch}')
+print(f'Список положительный чисел: {lst_pos}')
+print(f'Список отрицательных чисел: {lst_neg}')

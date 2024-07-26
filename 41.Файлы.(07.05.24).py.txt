@@ -1,0 +1,49 @@
+# file = open('exa.txt', 'a')
+# file.write('\nHello World...')
+
+# file = open('exa.txt', 'r')
+# print(file.read())
+# file.close()
+
+# file = open('exa.txt', 'w')
+# file.write('\nHello World!')
+# file.close()
+
+# file = open('exa.txt', 'r')
+# print(file.read())
+# file.close()
+####################################
+# lst = []
+# file = open('exa.txt', 'r')
+# for line in file:
+#     lst.append(line.strip())
+# file.close()
+
+# file = open('exa2.txt', 'w')
+# for line in lst:
+#     if len(line)>7:
+#         file.write(line + '\n')
+# file.close()
+######################################
+lst = []
+count = int(input('Сколько строк будем вводить?\n>'))
+for i in range(count):
+    strn = input(f'Введите {i+1} строку:\n>')
+    lst.append(strn)
+file = open('exa2.txt', 'w')
+for line in lst:
+    file.write(line + '\n')
+file.close()
+print(lst)
+********************************exa.txt*****************************
+string1
+string2
+string3
+string11
+string12
+********************************exa2.txt*****************************
+1строка
+2строка
+3строка
+4строка
+5строка

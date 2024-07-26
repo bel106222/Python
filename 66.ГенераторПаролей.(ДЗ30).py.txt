@@ -1,0 +1,34 @@
+#Задание 2
+#Напишите функцию-генератор, которая будет генерировать случайные пароли
+#заданной длины. Пароль должен состоять из комбинации букв (верхнего
+#и нижнего регистра), цифр и специальных символов.
+#Ваша функция-генератор должна принимать аргумент lenght (длина пароля)
+#и возвращать случайно сгенерированные пароли.
+import random
+
+def new_password(length):
+    current_symbol = []
+    for i in range(length):
+        current_symbol.append(chr(random.randint(48,57))) #цифры
+        current_symbol.append(chr(random.randint(97,122))) #прописные буквы
+        current_symbol.append(chr(random.randint(65,90))) #строчные буквы
+        current_symbol.append(special_symbol()) #спец символы
+        symbol = current_symbol[random.randint(0,3)]
+        yield symbol
+        current_symbol.clear()
+
+def special_symbol():
+    current_symbol = []
+    for i in range(4):
+        current_symbol.append(chr(random.randint(32,47))) #спец символы 1
+        current_symbol.append(chr(random.randint(58,64))) #спец символы 2
+        current_symbol.append(chr(random.randint(91,96))) #спец символы 3
+        current_symbol.append(chr(random.randint(123,126))) #спец символы 4
+    symbol = current_symbol[random.randint(0,3)]
+    current_symbol.clear()
+    return symbol
+    
+number = int(input('Введите длину пароля:\n>'))
+print('Сгенерирован новый пароль:')
+for i in new_password(number):
+    print(i, end='')

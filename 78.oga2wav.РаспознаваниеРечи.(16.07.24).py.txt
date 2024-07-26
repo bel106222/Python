@@ -1,0 +1,34 @@
+import urllib.request
+from pydub import AudioSegment
+import speech_recognition
+import os
+#3 exe-файла из ffmpeg надо закинуть в корень проекта
+
+url = "https://drive.google.com/uc?export=view&id=1aBZnHgsjg7XIVlvpYasOOJ8hurp7V6Ww"
+filename = 'sample.oga'
+urllib.request.urlretrieve(url,filename)
+
+def oga2wav(filename):
+    new_filename = filename.replace('.oga','.wav')
+    audio = AudioSegment.from_file(filename)
+    audio.export(new_filename,format='wav')
+    return new_filename
+
+def recognize_speech(oga_filename):
+    wav_filename = oga2wav(oga_filename)
+    recognizer = speech_recognition.Recognizer()
+
+    with speech_recognition.WavFile(wav_filename) as source:
+        wav_audio = recognizer.record(source)
+
+    text = recognizer.recognize_google(wav_audio, language='ru')
+
+    if os.path.exists(oga_filename):
+        os.remove(oga_filename)
+
+    if os.path.exists(wav_filename):
+        os.remove(wav_filename)
+
+    return text
+
+print(recognize_speech(filename))

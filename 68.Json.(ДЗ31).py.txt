@@ -1,0 +1,118 @@
+#Задание 1
+#Есть некоторый словарь, который хранит названия
+#стран и столиц. Название страны используется в качестве
+#ключа, название столицыв качестве значения. Необходимо
+#реализовать: добавление данных, удаление данных, поиск
+#данных, редактирование данных, сохранение и загрузку
+#данных (используя упаковку и распаковку (JSON).
+import os
+import json
+
+countries = {'Россия' : 'Москва', 'США' : 'Вашингтон', 'Китай' : 'Пекин', 'Япония': 'Токио', 'Индия' : 'Нью-Дели'}
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+def pause():
+    input('Нажмите Enter для продолжения...')
+
+def displayDict(dict):
+    if len(dict)==0:
+        print('Записи отсутствуют.')
+    else:
+        count = 0
+        for i in dict:
+            count += 1
+            print(f'{count}. {i} - {dict[i]}')
+
+def add_data(countries):
+    country = input('Введите название страны: ')
+    capital = input('Введите столицу страны: ')
+    countries[country] = capital
+    print('Ok.')
+
+def delete_data(countries):
+    country = input('Введите название страны: ')
+    del countries[country]
+    print('Ok.')
+
+def search_data(countries):
+    country = input('Введите название страны: ')
+    print(countries[country])
+
+def edit_data(countries):
+    country = input('Введите название страны: ')
+    capital = input('Введите новую столицу страны: ')
+    countries[country] = capital
+    print('Ok.')
+
+def save_data(countries):
+    with open('countries.json', "w") as file:
+        json.dump(countries, file, indent=4)
+    print('Ok.')
+
+def load_data(countries):
+    with open('countries.json', "r", encoding='utf-8') as file:
+        countries = json.load(file)
+    print('Ok.')
+    return countries
+
+def mainMenu(countries):
+    while True:
+        cls()
+        print('Словарь: \"СТРАНЫ И СТОЛИЦЫ\":')
+        print('1. Вывод словаря.')
+        print('2. Добавление записи.')
+        print('3. Редактирование записи.')
+        print('4. Удаление записи.')
+        print('5. Поиск записи.')
+        print('6. Запись данных в файл.')
+        print('7. Загрузка данных из файла.')
+        print('8. Выход.')
+        err = False
+        choice = input('>')
+        if choice.isnumeric():
+            choice = int(choice)
+            if choice == 1:
+                displayDict(countries)
+                pause()
+            elif choice == 2:
+                add_data(countries)
+                pause()
+            elif choice == 3:
+                edit_data(countries)
+                pause()
+            elif choice == 4:
+                delete_data(countries)
+                pause()
+            elif choice == 5:
+                search_data(countries)
+                pause()
+            elif choice == 6:
+                save_data(countries)
+                pause()
+            elif choice == 7:
+                countries = load_data(countries)
+                pause()
+            elif choice == 8:
+                print('Пока.')
+                break
+            else:
+                err = True
+        else:
+            err = True
+        if err:
+            print('Неверный ввод! Попробуйте снова.')
+
+# main()
+mainMenu(countries)
+***********************************countries.json******************************************
+{
+    "\u0420\u043e\u0441\u0441\u0438\u044f": "\u041c\u043e\u0441\u043a\u0432\u0430",
+    "\u0421\u0428\u0410": "\u0412\u0430\u0448\u0438\u043d\u0433\u0442\u043e\u043d",
+    "\u041a\u0438\u0442\u0430\u0439": "\u041f\u0435\u043a\u0438\u043d",
+    "\u042f\u043f\u043e\u043d\u0438\u044f": "\u0422\u043e\u043a\u0438\u043e",
+    "\u0418\u043d\u0434\u0438\u044f": "\u041d\u044c\u044e-\u0414\u0435\u043b\u0438",
+    "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c": "\u041c\u0438\u043d\u0441\u043a",
+    "\u041a\u041d\u0414\u0420": "\u041f\u0445\u0435\u043d\u044c\u044f\u043d"
+}

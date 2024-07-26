@@ -1,0 +1,163 @@
+#Задание
+#напишите программу для работы с односвязным списком, 
+#которая реализует следующие операции:
+#1. Добавление элемента после определённого узла.
+#2. Удаление первого элемента в списке.
+#3. Поиск индекса элемента в списке.
+#4. Вывод количества элементов в списке.
+#5. Объединение двух односвязных списков в один.
+
+class Box():
+    def __init__(self, index, data):
+        self.index = index    # индекс элемента
+        self.data = data      # данные элемента
+        self.next = None      # указатель на следующий элемент
+    
+    def __str__(self):        # метод для вывода информации об элементе
+        current_None = hex(id(None))
+        if hex(id(self.next)) == current_None:
+            current_next = 'None'
+        else:
+            current_next = hex(id(self.next))
+        return f'[{self.index}]: {str(self.data)} in {hex(id(self))}, next = {current_next}'
+
+
+class LinkedList():
+    
+    def __init__(self):
+        self.head = None
+
+    
+    def __str__(self):             # метод для вывода списка
+        result = '\nОдносвязный список:\n'
+        if self.head != None:
+            current = self.head
+            while current:
+                result += str(f'{current.__str__()}\n')
+                current = current.next
+        return result
+
+    
+    def count(self):               # метод для подсчета количества элементов в списке
+        current = self.head        # начинаем с головы списка
+        counter = 0                # счетчик элементов
+        while current:             # итерируясь по ссылкам на следующий элемент
+            counter += 1           # увеличиваем счетчик
+            current = current.next # переходим к следующему элементу
+        return counter             # возвращаем количество найденых элементов
+
+    
+    def add(self, data):                # метод для добавления элемента в конец списка
+        if self.count() != None:        # если список не пустой
+            index = self.count()        # формируем индекс нового элемента
+        else:
+            index = 0                   # иначе индекс устанавливаем в 0
+
+        if self.head is None:           # если список был пустой
+            self.head = Box(0, data)    # то новый элемент становится головой списка
+        else:                           # иначе
+            current = self.head         # начинаем с головы списка
+            while current.next:         # пока есть ссылка на следующий
+                current = current.next  # перебераем элементы
+            current.next = Box(index, data) # добавляем новый элемент в конец списка
+
+    
+    def add_by_index(self, index, data):    # метод для добавления элемента в список по индексу
+        if self.count() != None:            # определяем количество элементов в списке
+            current_count = self.count()
+        else:
+            current_count = 0
+        
+        if index >= current_count:            
+            print('Индекс вне диапазона!')
+            return
+        else:
+            temp = LinkedList()             # создаем пустой список для переноса значений
+            current = self.head             # начинаем с головы текущего списка
+            while current.next:             # пока есть ссылка на следующий
+                if current.index == index:  # если текущий индекс равен заданному
+                    temp.add(data)          # вставляем заданный элемент
+                temp.add(current.data)      # добавляем данные текущего элемента
+                current = current.next      # перебераем элементы
+            if current.index == index:      # если последний индекс равен заданному
+                temp.add(data)              # вставляем заданный элемент
+            temp.add(current.data)          # добавляем данные последнего элемента
+            
+            self.head = temp.head           # заменяем текущую голову на содержимое временной
+
+    
+    def delete_first(self):                # метод для удаления первого элемента в списке
+        if self.head != None:              # если список не пустой
+            self.head = self.head.next     # заменяем текущую голову на следующий элемент
+            count = 0
+            current = self.head            # начинаем с головы списка
+            while current.next:            # пока есть ссылка на следующий
+                current.index = count      # устанавливаем индекс текущего элемента
+                count += 1                 # увеличиваем счетчик
+                current = current.next     # перебераем элементы
+            current.index = count          # устанавливаем индекс последнего элемента
+
+    
+    def find_index(self, data):            # метод для поиска индекса элемента в списке
+        if self.head != None:              # если список не пустой
+            current = self.head            # начинаем с головы списка
+            while current:                 # итерируясь по ссылкам на следующий элемент
+                if current.data == data:   # если данные текущего элемента равны заданным
+                    return current.index   # возвращаем индекс
+                current = current.next     # смещаемся к следующему элементу
+                
+    
+    def merge(self, linked_list):           # метод для объединения двух односвязных спиcков
+        if self.count() != None and linked_list.count() != None:
+            temp = LinkedList()             # создаем пустой список для переноса значений
+            current = self.head             # начинаем с головы текущего списка
+            while current.next:             # пока есть ссылка на следующий
+                temp.add(current.data)      # добавляем данные текущего элемента
+                current = current.next      # перебераем элементы
+            temp.add(current.data)          # добавляем данные последнего элемента
+            current = linked_list.head      # переходим к голове второго списка
+            while current.next:             # пока есть ссылка на следующий
+                temp.add(current.data)      # добавляем данные текущего элемента
+                current = current.next      # перебераем элементы
+            temp.add(current.data)          # добавляем данные последнего элемента
+            self.head = temp.head           # заменяем текущую голову на содержимое временной
+        else:
+            print('Объединяемые списки не могут быть пустыми!')
+        
+
+llist1 = LinkedList()
+
+llist1.add('Значение10')
+print(llist1)
+
+llist1.add('Значение20')
+print(llist1)
+
+llist1.add('Значение30')
+print(llist1)
+
+print(f'Число элементов в списке: {llist1.count()}')
+
+llist1.add_by_index(1, 'Значение15')
+print(llist1)
+print(f'Число элементов в списке: {llist1.count()}')
+
+llist1.add_by_index(3, 'Значение25')
+print(llist1)
+print(f'Число элементов в списке: {llist1.count()}')
+
+llist1.delete_first()
+print(llist1)
+print(f'Число элементов в списке: {llist1.count()}')
+
+llist1.add_by_index(4, 'Значение35')
+
+print(f'Индекс искомого элеиента: [{llist1.find_index("Значение25")}]')
+
+llist2 = LinkedList()
+llist2.add('Значение40')
+llist2.add('Значение50')
+llist2.add('Значение60')
+llist2.merge(llist1)
+print(llist2)
+print(f'Число элементов в списке: {llist2.count()}')

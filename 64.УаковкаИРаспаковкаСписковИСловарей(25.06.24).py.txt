@@ -1,0 +1,69 @@
+#Задание 
+#Выписав первые шесть простых чисел, получим 2, 3, 5, 7, 11 и 13.
+#Очевидно, что 6-е простое число - 13. 
+#Какое число является 10001-м простым числом?
+# import time
+
+# def is_simple(a):
+#     k = 0
+#     for i in range(2, a // 2+1):
+#         if (a % i == 0):
+#             k = k+1
+#     if (k <= 0):
+#         return True
+#     else:
+#         return False
+
+# lst = []
+# n = 0 
+# k = 2
+# while n < 10001:
+#     #strn = str(k)     
+#     #last_n = strn[len(strn)-1]
+#     # исключаем числа оканчивающиеся на 0, 2, 4, 5, 6, 8
+#     #if last_n == '1' or last_n == '3' or last_n == '7' or last_n == '9' and k == 5:
+#     if is_simple(k):
+#         lst.append(k)
+#         n += 1
+#     k += 1
+
+# start_time = time.time()
+# print('10001 простое число:', lst[10000])
+# end_time = time.time()
+# print('Затрачено времени:',end_time - start_time)
+########################### УПАКОВКА И РАСПАКОВКА #############################
+def sum_of_values(a,b,c):
+    return a + b + c
+
+values = [1,2,3]
+#a, b, c = values # без распаковки
+result = sum_of_values(*values)
+print(result)
+
+my_list = [1,2,3,4,5]
+a, b, *c = my_list
+print(a, b, c) # 1 2 [3, 4, 5]
+a, *b, c = my_list
+print(a, b, c) # 1 [2, 3, 4] 5
+
+my_list2 = [1,2,3,4,5]
+new_list = [*my_list2, 6, 7, 8]
+print(new_list) # [1, 2, 3, 4, 5, 6, 7, 8]
+
+def print_details(name, age):
+    print(f'Name: {name}')
+    print(f'Age: {age}')
+
+details = {'name': 'John', 'age': 25}
+print_details(**details) # Name: John\n Age: 25
+
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'c': 3, 'd': 4}
+combined_dict = {**dict1, **dict2}
+print(combined_dict) # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+***********************************countries.txt***********************************
+Россия,  Москва
+Китай, Пекин
+Япония, Токио
+Индия,  Нью-Дели
+Беларусь, Минск

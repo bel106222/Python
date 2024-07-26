@@ -1,0 +1,100 @@
+import json
+import pickle
+# string = "Test string"
+# integer = 211
+# array = [1,2,3,4,5]
+# mydict = {"title": string, "code": integer, "data" : array}
+# x = json.dumps(mydict) # упаковываем словарь в json-структуру
+# print (x)
+# print (type(x))
+# y = json.loads(x) # развёртываение строки х в словарь
+# print (type(y))
+# with open('data.json', "w") as file:
+#     json.dump(y,file) # записываем словарь у в файл
+# with open('data.json', "r") as file:
+#     z = json.load(file) # считываем файл и преобразуем в словарь
+#     print(z)
+#     print(type(file))
+####################################################################
+# class Test:
+#     def __init__(self, title, body):
+#         self.title = title
+#         self.body = body
+#     def __str__(self) -> str:
+#         return f"Test: {self.title}, {self.body}"
+        
+# t = Test("Test title", "Test body")
+# print (t)
+# data = json.dumps(t, default=lambda x: x.__dict__) # упаковываем класс в json-структуру, через специальную функцию lambda
+# print (data)
+# print (type(data))
+####################################################################
+# data = {
+#     'a':[1,2,3],
+#     'b':{'test string', b'byte string'},
+#     'c':{None,True,False}
+#         }
+# with open('data.pikle', 'wb') as file:
+#     pickle.dump(data, file)
+# with open('data.pikle', 'rb') as file:
+#     new_data = pickle.load(file)
+# print (new_data)
+# print (type(new_data))
+####################################################################
+class Plane:
+     def __init__(self, type, quantity, company):
+         self.type = type
+         self.quantity = quantity
+         self.company = company
+     def __str__(self) -> str:
+         return (f'Plane: {self.type}, {self.quantity}, {self.company}')
+plane1 = Plane("Ty-154", 150, 'Аэрофлот')
+plane2 = Plane("МС-21", 250, 'Победа')
+lst = [plane1, plane2]
+with open('plane.pikle', 'wb') as file:
+    pickle.dump(lst, file)
+with open('plane.pikle', 'rb') as file:
+    new_lst = pickle.load(file)
+print(new_lst)
+for i in new_lst:
+    print (i)
+    print (i.type)
+    print (i.quantity)
+    print (i.company)
+####################################################################
+# class Fraction:
+    
+#     def __init__(self, numerator, denominator):
+#         self.numerator = numerator
+#         self.denominator = denominator
+    
+#     def __str__(self) -> str:
+#         return (f'Fraction: {self.numerator}/{self.denominator}')
+    
+#     def multiplication(self, other):
+#         self.numerator = numerator * other.numerator
+#         self.denominator = denominator * other.denominator
+    
+# fraction1 = Fraction(1, 2)
+# fraction2 = Fraction(3, 4)
+# data1 = json.dumps(fraction1, default=lambda x: x.__dict__)
+# with open('fraction1.json', 'w') as file:
+#      json.dump(data1, file)
+# with open('fraction2.pikle', 'wb') as file:
+#      pickle.dump(fraction2, file)
+# with open('fraction1.json', "r") as file:
+#      fraction3 = json.load(file)
+# print(fraction3)
+# with open('fraction2.pikle', 'rb') as file:
+#     fraction4 = pickle.load(file)
+# print(fraction4)
+***********************************plane.pikle***********************************
+��
+********************************fraction2.pikle***********************************
+��?
+********************************data.json***********************************
+{"title": "Test string", "code": 211, "data": [1, 2, 3, 4, 5]}
+********************************data.pikle***********************************
+��@
+********************************fraction1.json***********************************
+"{\"numerator\": 1, \"denominator\": 2}"

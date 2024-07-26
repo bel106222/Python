@@ -1,0 +1,87 @@
+# Задание 1
+# Создайте базовый класс Vehicule (транспортное средство)
+# с атрибутами brand (марка) и model (модель). Далее
+# создайте два дочерних класса: Car (автомобиль) и 
+# Motorcycle (мотоцикл).
+# У класса Car должен быть дополнительный атрибут num_doors
+# (количество дверей), а у класса Motorcycle - атрибут 
+# engine_capacity (объем двигателя).
+# У всех классов должен быть метод display_info(), который
+# выводит информацию о транспортном средстве (марка и модель)
+# и дополнительные параметры (количество дверей или объем двигателя).
+
+class Vehicule():
+
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def display_info(self):
+        print(f'Марка: {self.brand}, модель: {self.model}')
+
+class Car(Vehicule):
+
+    def __init__(self, brand, model, num_doors):
+        super().__init__(brand, model)
+        self.num_doors = num_doors
+    
+    def display_info(self):
+        super().display_info()
+        print(f'Количество дверей: {self.num_doors}')
+
+class Motorcycle(Vehicule):
+
+    def __init__(self, brand, model, engine_capacity):
+        super().__init__(brand, model)
+        self.engine_capacity = engine_capacity
+
+    def display_info(self):
+        super().display_info()
+        print(f'Объем двигателя: {self.engine_capacity}')
+        
+print('ЗАДАНИЕ 1')
+car1 = Car('Лада', 'Гранта', 4)
+car1.display_info()
+print()
+motorcycle1 = Motorcycle('Ява', '350', 350)
+motorcycle1.display_info()
+################################################################
+# Задание 2
+# Создайте класс Shape (фигура) с методом calculate_area(),
+# который вычисляет и возвращает площадь фигуры. Далее,
+# создайте два дочерних класса: Rectangle (прямоугольник) и 
+# Circle (круг).
+# У классы Recangle должны быть атрибуты width (ширина) и
+# hight (высота), а у класса Circle - атрибут radius (радиус).
+# Метод calculate_area() у класса Rectangle должен вычислять
+# площадь прямоугольника по формуле width * hight, а у класса
+# Circle - по формуле π * radius**2 (π = 3.14).
+
+class Sahpe():
+
+    def calculate_area(self):
+        return 'Фигура не определена'
+
+class Rectangle(Sahpe):
+    
+    def __init__(self, width, hight):
+        self.width = width
+        self.hight = hight
+
+    def calculate_area(self):
+        return self.width * self.hight
+
+class Circle(Sahpe):
+    
+    def __init__(self, radius):
+        self.radius = radius
+
+    def calculate_area(self):
+        return 3.14 * self.radius**2
+        
+print('\nЗАДАНИЕ 2')
+rectangle1 = Rectangle(20, 10)
+print(f'Площадь прямоугольника со сторонами {rectangle1.hight}x{rectangle1.width} = {rectangle1.calculate_area()}')
+circle1 = Circle(10)
+print(f'Площадь круга с радиусом {circle1.radius} = {circle1.calculate_area()}')
+################################################################

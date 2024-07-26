@@ -1,0 +1,6 @@
+#print('Nothing\nwill work\nunless you do.')
+a = int(input('Enter frst number: '))
+b = int(input('Enter second number: '))
+print('\na + b =', a + b)
+print('a - b =', a - b)
+print('a * b =', a * b)

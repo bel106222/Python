@@ -1,0 +1,56 @@
+# number = input("Enter 6-digit number: ")
+
+# if len(number) == 6:
+#   error = False
+# else:
+#   error = True
+  
+# if error == False:
+  
+#   if (int(number[0])  < 0 ) or (int(number[0]) > 9):
+#     error = True
+#   elif (int(number[1])  < 0 ) or (int(number[1]) > 9):
+#     error = True
+#   elif (int(number[2])  < 0 ) or (int(number[2]) > 9):
+#     error = True
+#   elif (int(number[3])  < 0 ) or (int(number[3]) > 9):
+#     error = True
+#   elif (int(number[4])  < 0 ) or (int(number[4]) > 9):
+#     error = True
+#   elif (int(number[5])  < 0 ) or (int(number[5]) > 9):
+#     error = True
+
+# if error == True:
+#   print("Invalid number")
+# else:
+#   if (int(number[0]) + int(number[1]) + int(number[2])) == (int(number[3]) + int(number[4]) + int(number[5])):
+#     print("Lucky")
+#   else:
+#     print("Ordinary")
+############################################################
+# number = input("Enter 6-digit number: ")
+# if len(number) == 6:
+#     print(number[5] + number[4] + number[3] + number[2] + number[1] + number[0])
+# else:
+#     print("Invalid number")
+#############################################################
+# number = int(input("Enter number of month: "))
+# if number < 1 or number > 12:
+#     print("Invalid number")
+# else:
+#     if number == 1 or number == 2 or number == 12:
+#         print("winter")
+#     elif number > 2 and number < 6 :
+#         print("spring")
+#     elif number > 5 and number < 9 :
+#         print("summer")
+#     elif number > 8 and number < 12:
+#         print("autumn")
+##############################################################
+strn = input("Enter string: ")
+if strn.isalpha() == True:
+    print("String contains only letters ", len(strn))
+elif strn.isnumeric() == True:
+    print("String contains only numbers")
+else:
+    print("String contains both letters and numbers")

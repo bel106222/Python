@@ -1,0 +1,41 @@
+# from random import randint
+
+# list = []
+# for _ in range(100):
+#     list.append(randint(10,99))
+    
+# print(list)
+
+# def low_summ_10(spisok, j):
+#     summ = 0
+#     print(j, end = " - ")
+
+#     for i in range(j, j + 10):
+#         summ += list[i]
+#         print(spisok[i], end = ' ')
+#     print(summ)
+
+#     if j < len(spisok) - 10:
+#         next_summ = low_summ_10(spisok, j + 1)
+#         if summ > next_summ[0]:
+#             return next_summ
+        
+#     return (summ, j)
+
+# print(low_summ_10(list, 0))
+#####################################################
+def largest_divisor(n1, n2, temp = None):
+    if n2 > n1:
+        n1, n2 = n2, n1
+    if temp is None:
+        temp = n2
+    print(n1, n2, temp)
+    if (n1 % temp == 0) and (n2 % temp == 0):
+        return temp
+    else:
+        return largest_divisor(n1, n2, temp - 1)
+
+num1 = int(input("Введите первое число:\n>"))
+num2 = int(input("Введите второе число:\n>"))
+print(f'Наибольший общий делитель чисел {num1, num2} равен {largest_divisor(num1, num2)}')
+#######################################################

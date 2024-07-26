@@ -1,0 +1,81 @@
+# Задание 1
+# Создайте программу, хранящую информацию о великих
+# баскетболистах. Нужно хранить ФИО баскетболиста и
+# его рост. Требуется реализовать возможность добавления,
+# удаления, поиска, замены данных. Используйте словарь
+# для хранения информации.
+print('ЗАДАНИЕ 1')
+baskets = {'Коби Брайант' : 198,
+           'Майкл Джордан' : 198,
+           'Леброн Джеймс' : 203,
+           'Билл Расселл' : 208,
+           'Уилт Чемберлен' : 216,
+           'Кевин Дюрант' : 211}
+
+def menu(dict):
+    print('\nВеликие баскетболисты:')
+    count = 1
+    for i in dict:
+        print(f'{count}. {i}, рост {dict[i]}')
+        count += 1
+    print('\nМЕНЮ:\n1. Добавить.\n2. Удалить.\n3. Изменить.\n4. Поиск.\n5. Выход.')
+
+    choice = int(input('>'))
+    if choice == 1:
+        add(dict)
+    elif choice == 2:
+        delete(dict)
+    elif choice == 3:
+        change(dict)
+    elif choice == 4:
+        search(dict)
+    elif choice == 5:
+        print('Пока.')
+        return False
+    else:
+        print('Введите число от 1 до 5.')
+    
+    return True
+    
+def add(dict):
+    key = input('Введите ФИО баскетболиста: ')
+    value = int(input('Введите рост баскетболиста: '))
+    dict[key] = value
+
+def delete(dict):
+    key = input('Введите ФИО баскетболиста, которого нужно удалить: ')
+    find = False
+    for i in dict:
+        if i == key:
+            del dict[key]
+            find = True
+            break
+    if find == False:
+        print('Такого баскетболиста нет.')
+
+def change(dict):
+    key = input('Введите ФИО баскетболиста, которого нужно изменить: ')
+    find = False
+    for i in dict:
+        if i == key:
+            dict[key] = int(input('Введите новый рост: '))
+            find = True
+            break
+    if find == False:
+        print('Такого баскетболиста нет.')
+
+def search(dict):
+    key = input('Введите ФИО баскетболиста, которого нужно найти: ')
+    find = False
+    for i in dict:
+        if i == key:
+            print(f'найден {key}, его рост: {dict[key]}')
+            find = True
+            break
+    if find == False:
+        print('Такого баскетболиста нет.')    
+
+cont = True
+while cont:
+    cont = menu(baskets)
+############################################################################

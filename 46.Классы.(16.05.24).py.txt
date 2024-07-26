@@ -1,0 +1,36 @@
+class Person:
+        
+    def __init__(self, fio, b_date, tel, town, country, adress):
+        # print('Метод init вызван')
+        self.fio = fio
+        self.b_date = b_date
+        self.tel = tel
+        self.town = town
+        self.country = country
+        self.adress = adress
+
+    def input_data(self):
+        self.fio = input('Введите ФИО: ')
+        self.b_date = input('Введите дату рождения: ')
+        self.tel = input('Введите номер телефона: ')
+        self.town = input('Введите город проживания: ')
+        self.country = input('Введите страну проживания: ')
+        self.adress = input('Введите адрес: ')
+
+    def output_data(self):
+        print('ФИО: ', self.fio)
+        print('Дата рождения: ', self.b_date)
+        print('Номер телефона: ', self.tel)
+        print('Город проживания: ', self.town)
+        print('Страна проживания: ', self.country)
+        print('Адрес: ', self.adress)
+    
+    def __str__(self):
+        return(f'Имя: {self.fio}, дата рождения: {self.b_date}, телефон: {self.tel}, город: {self.town}, страна: {self.country}, адрес: {self.adress}')
+        
+pers1 = Person('Иванов Иван Иванович', '20.01.2001', '+7(999)999-99-99', 'Москва', 'Россия', 'г. Москва, ул. Пушкина, д. 10')
+
+print (pers1.fio)
+print (pers1.country)
+
+pers1.output_data()

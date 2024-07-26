@@ -1,0 +1,48 @@
+# import random
+# print(random.randint(1,10))
+#
+# import random as rnd # импорт под псевдонимом rnd
+# print(rnd.randint(1,10))
+#
+# from random import * # импорт всех элементов из модуля random
+# print(randint(1,10))
+#
+# from random import randint # импорт из модуля random функции randint
+# print(randint(1,10))
+#
+# from random import randint as rnd 
+# print(rnd(1,10))
+#
+# from random import *
+# print(randint(1,10))
+# a = ['one', 'two', 'three']
+# print(choice(a))
+# 
+from test import *
+from test import number
+print(number)
+func()
+a = MyClass()
+print(a)
+****************************test.py*********************************
+__all__ = ['func', 'MyClass']
+
+number = 35
+
+def func():
+    print('In function')
+    
+class MyClass:
+    pass
+****************************calc.py*********************************
+def add(num1: float, num2: float) -> float:
+    return num1 + num2
+
+def sub(num1: float, num2: float) -> float:
+    return num1 - num2
+
+def mul(num1: float, num2: float) -> float:
+    return num1 * num2
+
+def div(num1: float, num2: float) -> float:
+    return num1 / num2

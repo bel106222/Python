@@ -1,0 +1,125 @@
+# ЗАДАНИЕ
+# Вывести на экран фигуры, заполненные звездочками.
+# Диалог с пользователем реализовать при помощи меню.
+
+symbol = '*'
+min = 1
+max = 20
+
+while True:
+    
+    choise = 0
+    print('\nМЕНЮ:')
+    print('1.Выберать фигуру по номеру.')
+    print('2.Изменить размер фигуры.')
+    print('3.Выход.')
+    menu = input('>')
+    if menu == '1':
+        print('Введите номер фигуры (1-10), 11 - все подряд')
+        choise = int(input('>'))
+    elif menu == '2':
+        print('Укажите размер фигуры (3-40)')
+        max = int(input('>'))
+    elif menu == '3':
+        print('Пока.')
+        break
+
+    if choise == 1 or choise == 11:
+        print('Фигура \'a\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if i < j:
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 2 or choise == 11:
+        print('Фигура \'б\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if j < i:
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 3 or choise == 11:
+        print('Фигура \'в\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if i < (j + 1) and i < (max - j + 1):
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 4 or choise == 11:
+        print('Фигура \'г\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if i > j and i > (max - j):
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 5 or choise == 11:
+        print('Фигура \'д\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if (i < (j + 1) and i < (max - j + 1)) or (i > j and i > (max - j)):
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 6 or choise == 11:
+        print('Фигура \'е\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if (i < (max - j + 2) and i > (min + j - 2)) or (i > (max - j) and i < (min + j)):
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 7 or choise == 11:
+        print('Фигура \'ж\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if i < (max - j + 2) and i > (min + j - 2):
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 8 or choise == 11:
+        print('Фигура \'з\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if i > (max - j) and i < (min + j):
+                    print (symbol, end=' ')
+                else:
+                    print (' ', end=' ')
+            print()
+    
+    if choise == 9 or choise == 11:
+        print('Фигура \'и\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if i < max - j:
+                    print (symbol, end=' ')
+                else:
+                    print(' ', end=' ')
+            print()
+    
+    if choise == 10 or choise == 11:
+        print('Фигура \'к\':')
+        for i in range(min,max+1):
+            for j in range(min,max+1):
+                if j > max - i:
+                    print (symbol, end=' ')
+                else:
+                    print(' ', end=' ')
+            print()

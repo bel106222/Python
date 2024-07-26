@@ -1,0 +1,61 @@
+# mins = ''
+# hours = ''
+
+# for i in range(24):
+#     for j in range(60):
+
+#         mins = str(j)
+#         hours = str(i)
+        
+#         if len(mins) == 1:
+#             mins = '0' + str(j)
+            
+#         if len(hours) == 1:
+#             hours = '0' + str(i)
+
+#         print(f'{hours}:{mins}')
+
+#         n = 0
+#         while n < 4000000:
+#             n += 1
+#########################################################
+# number = int(input('Enter a number: '))
+# counter = 2
+
+# while counter < 10:
+#     print(f'{number} x {counter} = {number * counter}')
+#     counter+=1
+##########################################################
+# beg = int(input('Начало:\n>'))
+# end = int(input('Конец:\n>'))
+# number = int(input('Число:\n>'))
+
+# while beg <= end:
+    
+#     if beg == number:
+#         print(f'!{beg}!', end = '')
+#     else:
+#         print (beg, end = '')
+        
+#     beg+=1
+###########################################################
+import random
+game = True
+counter = 0
+botNumber = random.randrange(500)
+print ('Я загадал число от 1 до 500, попробуй угадай!\n')
+
+while game:
+    
+    counter+=1
+    number = int(input(f'Попытка {counter}. Введи число: '))
+    
+    if number != botNumber:
+        if number > botNumber:
+            print('Ваше число больше!')
+        else:
+            print('Ваше число меньше!')
+    else:
+        print(f'Вы угадали за {counter} попыток!')
+        game = False
+###########################################################

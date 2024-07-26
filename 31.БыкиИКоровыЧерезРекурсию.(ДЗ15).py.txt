@@ -1,0 +1,85 @@
+# Задание 1
+# Написать рекурсивную функцию нахождения 
+# наибольшего общего делителя двух целых чисел.
+print('ЗАДАНИЕ 1')
+def gcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcd(b, a % b)
+
+number1 = int(input("Введите первое число:\n>"))
+number2 = int(input("Введите второе число:\n>"))
+print(gcd(number1, number2))
+##########################################################
+# Задание 2
+# Написать игру «Быки и коровы». 
+# Программа «загадывает» четырёхзначное число и играющий
+# должен угадать его. После ввода пользователем числа
+# программа сообщает, сколько цифр числа угадано (быки) и
+# сколько цифр 0
+# После отгадывания числа на экран необходимо вывести 
+# количество сделанных пользователем попыток. В программе
+# необходимо использовать рекурсию.
+import random
+def bulls_and_cows(number, user_number, counter):
+   
+    if user_number == '0': # если был введён 0, то выходим из рекурсии
+        print('Загаданное число: ', number, '\nИгра окончена!')
+        counter -= 1
+        return counter
+    else:
+        if number == user_number: # если числа совпали, то выходим из рекурсии
+            print('Вы угадали число!')
+            return counter
+        else:
+            bulls = 0 # счётчик быков
+            cows = 0 # счётчик коров
+            counter += 1 # счётчик попыток
+            
+            for i in range(len(user_number)): # перебирвем введённое число
+                dbl = False
+                for j in range(i + 1, len(number)): # проверяем на дублирование
+                    if user_number[i] == user_number[j]:
+                        dbl = True
+                if dbl == False: # если цифры не дублировались, то ищем совпадения
+                      for j in range(len(number)):
+                        if user_number[i] == number[j]:
+                            bulls += 1 # если цифра совпала, то увеличиваем счёт быков
+                            break
+                
+            for i in range(len(user_number)): # берём по одной цифре из введённого числа
+                if user_number[i] == number[i]: # если индексы равны и их числа
+                    cows += 1 # то это корова, считаем её
+
+            print(f'число {user_number} содержит {bulls} быков и {cows} коров.')    
+            print(f'Попытка {counter}. ', end = '')
+            user_number = input_num() # запрашиваем очердное число
+            return bulls_and_cows(number, user_number, counter) # рекурсия    
+
+def input_num():
+    number = 1
+    while number:
+        number = input('Введите число:\n>')
+        if number.isnumeric():
+            if len(number) == 4:
+                break
+            else:
+                if number == '0':
+                    break
+                else:
+                    print('Введенное число не является четырехзначным! Попробуйте снова.')
+        else:
+            print('Введенная строка не является числом! Попробуйте снова.')
+    return number
+
+print('\nЗАДАНИЕ 2')
+print('**************************************')
+print('*            БЫКИ И КОРОВЫ           *')
+print('**************************************')
+pc_number = str(random.randint(1000,9999))
+#print(pc_number)
+pc_number = str(1155)
+print('Загадано четырехзначное число, \nугадайте его или введите 0 для выхода.')
+num = input_num()
+print(f'Использовано попыток: {bulls_and_cows(pc_number, num, 1)}')

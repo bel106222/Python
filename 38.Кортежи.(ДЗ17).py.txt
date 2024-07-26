@@ -1,0 +1,125 @@
+# Задание 1
+# Есть три кортежа целых чисел необходимо найти
+# элементы, которые есть во всех кортежах.
+
+import random
+
+print('ЗАДАНИЕ 1')
+lst_one = []
+lst_two = []
+lst_thr = []
+lst_fou = []
+number = 15
+
+for i in range (number): # заполняем 3 списка случайными числами
+    lst_one.append(random.randint(-10, 10))
+    lst_two.append(random.randint(-10, 10))
+    lst_thr.append(random.randint(-10, 10))
+
+tpl_one = tuple(lst_one) # переделываем списки в кортежи и выводим их
+tpl_two = tuple(lst_two)
+tpl_thr = tuple(lst_thr)
+print(f'Кортеж 1:\n{tpl_one}')
+print(f'Кортеж 2:\n{tpl_two}')
+print(f'Кортеж 3:\n{tpl_thr}')
+
+for i in range(number): # перебираем первый кортеж
+    current_element = tpl_one[i]
+    flag2 = False # признак совпадения во втором кортеже
+    flag3 = False # признак совпадения в третьем кортеже
+    for j in range(number): # ищем совпадения во втром кортеже
+        if tpl_two[j] == current_element:
+            flag2 = True
+            break
+    for k in range(number): # ищем совпадения во втром кортеже
+        if tpl_thr[k] == current_element:
+            flag3 = True
+            break
+    if flag2 and flag3: # если совпало и во втором и в третьем
+        flag = False # признак наличия такого же элемента в выходном списке
+        for l in range(len(lst_fou)): # перебираем выходной список
+            if tpl_one[i] == lst_fou[l]: 
+                flag = True
+        if not flag:# если такого значения не было, добавляем его
+            lst_fou.append(tpl_one[i])
+
+print(f'Общие элементы в данных кортежах:\n{lst_fou}')
+##############################################################################
+# Задание 2
+# Есть три кортежа целых чисел необходимо найти
+# элементы, которые уникальны для каждого списка.
+
+def is_unique(element, tpl): # нет ли такого элемента в кортеже?
+    unq = True
+    for i in range(len(tpl)):
+        if element == tpl[i]:
+            unq = False
+            break
+    return unq
+
+def uni_elements(tpl1, tpl2, tpl3): # ищем элементы первого кортежа в двух других
+    lst = []
+    for i in range(number): # перебираем первый кортеж
+        current_element = tpl1[i]
+        flag2 = is_unique(current_element, tpl2)
+        flag3 = is_unique(current_element, tpl3)
+        if flag2 and flag3: # если во втором и в третьем совпадений не было
+            flag = False # признак наличия такого же элемента в выходном списке
+            for l in range(len(lst)): # перебираем выходной список
+                if tpl1[i] == lst[l]: 
+                    flag = True
+            if not flag:# если такого значения ещё не было, добавляем его
+                lst.append(tpl1[i])
+    print(f'Уникальные элементы кортежа {tpl1}:\n{lst}')
+    
+print('\nЗАДАНИЕ 2')
+lst_one = []
+lst_two = []
+lst_thr = []
+number = 15
+
+for i in range (number): # заполняем 3 списка случайными числами
+    lst_one.append(random.randint(-10, 10))
+    lst_two.append(random.randint(-10, 10))
+    lst_thr.append(random.randint(-10, 10))
+
+tpl_one = tuple(lst_one) # переделываем списки в кортежи
+tpl_two = tuple(lst_two)
+tpl_thr = tuple(lst_thr)
+
+uni_elements(tpl_one, tpl_two, tpl_thr) # сравниваем 1 кортеж со 2 и 3
+uni_elements(tpl_two, tpl_one, tpl_thr) # сравниваем 2 кортеж с 1 и 3
+uni_elements(tpl_thr, tpl_one, tpl_two) # сравниваем 3 кортеж с 1 и 2
+##############################################################################
+# Задание 3
+# Есть три кортежа целых чисел. Необходимо найти элементы,
+# которые есть в каждом из кортежей и находятся в каждом из 
+# них на той же позиции.
+
+print('\nЗАДАНИЕ 3')
+lst_one = []
+lst_two = []
+lst_thr = []
+lst_fou = []
+number = 15
+
+for i in range (number): # заполняем 3 списка случайными числами
+    lst_one.append(random.randint(-3, 3)) # даже при таком узком диапазоне,
+    lst_two.append(random.randint(-3, 3)) # совпадение элемента и позиции,
+    lst_thr.append(random.randint(-3, 3)) # может появится раза после 5-го
+
+tpl_one = tuple(lst_one) # переделываем списки в кортежи и выводим их
+tpl_two = tuple(lst_two)
+tpl_thr = tuple(lst_thr)
+print(f'Кортеж 1:\n{tpl_one}')
+print(f'Кортеж 2:\n{tpl_two}')
+print(f'Кортеж 3:\n{tpl_thr}')
+
+flag = False
+for i in range(number): # перебираем кортежи и сравниваем элементы
+    if tpl_one[i] == tpl_two[i] and tpl_one[i] == tpl_thr[i]:
+        flag = True
+        print(f'{tpl_one[i]} - элемент, который есть в каждом кортеже и находится на {i+1} позиции')
+if not flag:
+    print('В данных кортежах нет одинаковых элементов, стоящих на одной и той же позиции')
+##############################################################################

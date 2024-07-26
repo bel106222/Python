@@ -1,0 +1,107 @@
+# class Decorator:
+
+#     def __init__(self, func):
+#         print('init Decorator...')
+#         self.func = func
+    
+#     def __call__(self):
+#         print('Before', self.func.__name__, '()')
+#         self.func()
+#         print('After')
+
+# @Decorator
+# def wrapped():
+#     print('wrapped execute')
+
+# print('Start')
+# wrapped()
+# print('End')
+#########################################################
+# def DecoratorWithArgs(func):
+
+#     print('декоратор с аргументами...')
+#     def decorated(a,b):
+#         print('До вызова функции', func.__name__, '()')
+#         ret = func(a,b)
+#         print('После вызова функции', func.__name__, '()')
+#         return ret
+#     return decorated
+
+# @DecoratorWithArgs
+# def add(a,b):
+#     print('сложение')
+#     return a + b
+
+# @DecoratorWithArgs
+# def sub(a,b):
+#     print('вычитание')
+#     return a - b
+
+# print('Старт...')
+# r = add(10,20)
+# print('Результат:', r)
+# g = sub(10,20)
+# print('Результат:', g)
+# print('Конец...')
+######################################################
+# class Get_type:
+
+#     def __init__(self, func):
+#         print('init Decorator...')
+#         self.func = func
+
+#     def __call__(self, a, b):
+#         print('Before', self.func.__name__, '()')
+#         rez = self.func(a, b)
+#         print('After')
+#         print('Type of return data from this function:',type(rez))
+
+# @Get_type
+# def wrapped(a,b):
+#     print('wrapped execute', a, b)
+#     return a + b
+
+# print('Start')
+# wrapped(4, 5)
+# print('End')
+########################################################
+# def func(*args, **kwargs): # объявляем неизвестное количество именованных и неименованных аргументов
+#     print(f'{args=}')
+#     print(f'{kwargs=}')
+
+# func(1, 2, 3, a=4, b=5)
+########################################################
+# import sys
+# import time
+
+# def get_size(func):
+    
+#     def wrapper(a,b,delay=0):
+#         result = sys.getsizeof(func(a,b,delay))
+#         print(f'>>функция {func.__name__} занимает в памяти: {result} байт, {type(result)}')
+#     return wrapper
+
+# @get_size
+# def add_with_delay(a,b,delay=0):
+#     print(f'Сложение {a} * {b}', delay)
+#     time.sleep(delay) # пауза в секундах
+#     return a + b
+
+# print('Старт...')
+# add_with_delay(1000,20000)
+# add_with_delay(10,20,2)
+# print('Конец...')
+#########################################################
+def get_type(func):
+    def wrapper(*args):
+        print('Вызываем функцию')
+        result = func(args[0],args[1])
+        print(result)
+        print(f'Тип данных, возвращаемых функцией: {type(result)}')
+    return wrapper
+
+@get_type
+def func(a,b):
+    return 4+5
+
+func(1,2)

@@ -1,0 +1,178 @@
+# class Car():
+
+#     def __init__(self, speed, color ='Red', owner = None):
+#         self.speed = speed
+#         self.color = color
+#         self.owner = owner
+
+#     def say_owner(self):
+#         if self.owner:
+#             print(f'My owner is {self.owner}')
+#         else:
+#             print('I have no owner')
+
+# car1 = Car(100)
+# car2 = Car(90, 'Blue', 'John')
+
+# print(f'{car1.color=}')
+# print(f'{car2.color=}')
+
+# car3 = Car(color = 'Black', speed = 80)
+# print(f'{car3.color=}')
+
+# car1.say_owner()
+# car2.say_owner()
+
+# car1.owner = 'Jane'
+# car1.say_owner()
+##################################################################
+# class Computer():
+
+#     def __init__(self, cpu, ram, hdd = 500):
+#         self.cpu = cpu
+#         self.ram = ram
+#         self.hdd = hdd
+
+# pc1 = Computer(100,8,255)
+# print(f'{pc1.hdd=}')
+##################################################################
+# class Rectangle():
+#     def __init__(self, side):
+#         self.side = side
+
+#     def area(self):
+#         return self.side ** 2
+
+# r1 = Rectangle(5)
+# print(f'{r1.area()}')
+
+# class Circle():
+    
+#     def __init__(self, radius):
+#         self.radius = radius
+#         self.pi = 3.14
+    
+#     def area(self):
+#         return self.pi * self.radius ** 2
+
+# c1 = Circle(20)
+# print(f'{c1.area()}')
+###################################################################
+# Задание
+# Классы Куб, Сфера, Параллелипипед.
+# Функции: площадь всех поверхностей, внутренний объем.
+# экземпляры должны опционально принимать цвет, грани и
+# материал из чего сделан. Внутренний матриал может отсутстовать,
+# и тогда нужно сообщать, что экземпляр полый, а цвет
+# по умолчанию фиолетовый. Сделать родительский класс
+# со справочником материалов (плотность). Материал вводится
+# при создании предмета и проверятся по словарю. Если 
+# материал не найден в словаре, то вес не подсчитывается,
+# а выводится ошибка.
+
+class Material():
+    
+    dict = {'metal' : 7000, 'plastic' : 1000, 'wood' : 600}
+    
+    def __init__(self, density):
+        self.density = None
+        for i in Material.dict:
+            if density == i:
+                self.density = Material.dict[i]
+                break
+    
+    def get_density(self):
+        return self.density
+            
+class Cube(Material):
+    
+    def __init__(self, side, material = None, color = 'violet'):
+        super().__init__(material)
+        self.side = side
+        self.material = material
+        self.color = color
+
+    def area(self):
+        return self.side ** 2 * 6
+
+    def volume(self):
+        return self.side ** 3
+
+    def say_material(self):
+        if self.material:
+            print(f'My material is {self.material}')
+            if super().get_density() == None:
+                print('Error! Material not found!')
+            else:
+                print(f'Weighs {super().get_density()*self.volume()}')
+        else:
+            print('I\'m hollow')
+            
+class Sphere(Material):
+
+    def __init__(self, radius, material, color = 'violet'):
+        super().__init__(material)
+        self.pi = 3.14
+        self.radius = radius
+        self.material = material
+        self.color = color
+
+    def area(self):
+        return 4 * self.pi * self.radius ** 2
+
+    def volume(self):
+        return 4/3 * self.pi * self.radius ** 3
+
+    def say_material(self):
+        if self.material:
+            print(f'My material is {self.material}')
+            if super().get_density() == None:
+                print('Error! Material not found!')
+            else:
+                print(f'Weighs {super().get_density()*self.volume()}')
+        else:
+            print('I\'m hollow')
+            
+class Parallelepiped(Material):
+
+    def __init__(self, side1, side2, side3, material, color = 'violet'):
+        super().__init__(material)
+        self.side1 = side1
+        self.side2 = side2
+        self.side3 = side3
+        self.material = material
+        self.color = color
+
+    def area(self):
+        return 2 * (self.side1 * self.side2 + self.side1 * self.side3 + self.side2 * self.side3)
+
+    def volume(self):
+        return self.side1 * self.side2 * self.side3
+
+    def say_material(self):
+        if self.material:
+            print(f'My material is {self.material}')
+            if super().get_density() == None:
+                print('Error! Material not found!')
+            else:
+                print(f'Weighs {super().get_density()*self.volume()}')
+        else:
+            print('I\'m hollow')
+            
+cube1 = Cube(5, 'wood', 'green')
+print(f'{cube1.area()=}')
+print(f'{cube1.volume()=}')
+print(f'{cube1.color=}')
+cube1.say_material()
+
+sphere1 = Sphere(5, 'plastic', 'red')
+print(f'{sphere1.area()=}')
+print(f'{sphere1.volume()=}')
+print(f'{sphere1.color=}')
+sphere1.say_material()
+
+parallelepiped1 = Parallelepiped(5, 6, 7, 'etal', 'black')
+print(f'{parallelepiped1.area()=}')
+print(f'{parallelepiped1.volume()=}')
+print(f'{parallelepiped1.color=}')
+parallelepiped1.say_material()

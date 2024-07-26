@@ -1,0 +1,37 @@
+# Задание 1
+# Необходимо отсортировать первые две трети списка
+# в порядке возрастания, если среднее арифметическое
+# всех элементов больше нуля; иначе — лишь первую треть.
+# Остальную часть списка не сортировать, а расположить
+# в обратном порядке.
+from random import randint
+
+def bublle_sort(array): #функция сортировки списка пузырьковым методом
+    lenght = len(array)
+    for i in range(lenght):
+        for j in range(lenght - i - 1):
+            if array[j] > array[j + 1]:
+                array[j], array[j + 1] = array[j + 1], array[j]
+    return array
+
+list = []
+sr_summ = 0
+ln = 12
+for i in range(ln): #заполняем список и считаем среднее арифметическое
+    list.append(randint(-50,50))
+    sr_summ += list[i]
+sr_summ /= 10
+print('Сгенерирован список:',list)
+print('Его среднее арифметическое:',sr_summ)
+
+if sr_summ > 0: #сортируем первые две трети списка
+    current_len = int((ln/3)*2)
+    new_list = bublle_sort(list[:current_len])
+else: #сортируем первую треть списка
+    current_len = int((ln/3))
+    new_list = bublle_sort(list[:current_len])
+
+for i in range(ln -1, current_len -1, -1): #переворачиваем остальную часть списка
+    new_list.append(list[i]) #и, поэлементно, добавляем ее в новый список
+
+print('Переделанный список:', new_list)

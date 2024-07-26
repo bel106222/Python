@@ -1,0 +1,68 @@
+class Box:
+    def __init__(self, cat = None):
+        self.cat = cat
+        self.nextcat = None
+
+class Linkedlist:
+    
+    def __init__(self):
+        self.head = None
+    
+    def contains(self, cat):
+        lastbox = self.head
+        while (lastbox):  #тоже что и while lastbox:
+            if lastbox.cat == cat:
+                return True
+            lastbox = lastbox.nextcat
+        return False
+    
+    def addToEnd(self, newcat):
+        newbox = Box(newcat)
+        if self.head is None:
+            self.head = newbox
+            return
+        lastbox = self.head
+        while (lastbox.nextcat):
+            lastbox = lastbox.nextcat
+        lastbox.nextcat = newbox
+
+    def delBox(self, catToDel):
+        headcat = self.head
+        if headcat is not None:
+            if headcat.cat == catToDel:
+                self.head = headcat.nextcat
+                headcat = None
+                print(self.head)
+                return self.head
+        while (headcat is not None):
+            if headcat.cat == catToDel:
+                break
+            lastcat = headcat
+            headcat = headcat.nextcat
+
+    def get(self, index):
+        lastbox = self.head
+        boxIndex = 0
+        while boxIndex <= index:
+            if boxIndex == index:
+                return lastbox.cat
+            boxIndex += 1
+            lastbox = lastbox.nextcat
+    
+    def displayList(self):
+        currentCat = self.head
+        print('Linked list:\n------------')
+        i = 0 
+        while currentCat is not None: #тоже что и while (currentCat):
+            print(str(i) + ': ' + str(currentCat.cat))
+            i += 1
+            currentCat = currentCat.nextcat
+        print('------------')
+
+myList = Linkedlist()
+myList.addToEnd('cat1')
+myList.addToEnd('cat2')
+myList.addToEnd('cat3')
+
+myList.displayList()
+print(myList.get(0))

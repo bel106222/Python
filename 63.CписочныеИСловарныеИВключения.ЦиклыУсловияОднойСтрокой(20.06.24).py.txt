@@ -1,0 +1,45 @@
+# списочные и словарные включения
+# list1 = [i for i in range(1, 11)]
+# print(list1)
+# list2 = [i**2 for i in range(1, 11)]
+# print(list2)
+# list3 = [str(i) for i in range(1, 11)]
+# print(list3)
+#list4 = [int(i) for i in input('Введи целые числа через пробел:\n>').split()]
+#print(list4)
+# list5 = [i for i in range(1, 101) if i%2 == 0]
+# print(list5)
+# list6 = [i*j for i in range(1, 10) for j in range(1, 10)]
+# print(list6)
+# list7 = [i*j for i in range(1, 10) if i% 2 == 0 for j in range(1, 10) if j != 10]
+# print(list7)
+########################################
+# dict1 = {x: x**2+1 for x in range(5)}
+# print(dict1)
+# dict2 = {x:y for x in 'ABC' for y in 'XYZ'}
+# print(dict2)
+# dict3 = {str(x)+str(y):y for x in 'ABC' for y in 'XYZ'}
+# print(dict3)
+# dict4 = {}.fromkeys('ABC','Z')
+# print(dict4)
+# dict5 = {x:y for x,y in [('A',0),('B',1),('C',2)]}
+# print(dict5)
+# dict6 = {'ABCDE'[i]: [i%2]*5 for i in range(5)}
+# print(dict6)
+#########################################
+#list5 = [i//2 for i in range(1, 101) if i%2 == 0]
+#print(list5)
+# lst = ['Иванов','Петров','Сидоров']
+# lst2 = [5,4,3]
+# dict = {lst[i]: lst2[i] for i in range(len(lst2))}
+# print(dict)
+##########################################
+#Задание
+#Есть словарь (словарей), товаров с их ценами и количеством.
+#Необходимо создать словарь, где ключами будут названия товаров,
+#а значениями будет общая стоимость каждого товара (цена на
+#количество). Затем, используя словароное включение вычислить
+#общую стоимость всех товаров.
+dict7 = {'огурцы': {'количество':10, 'цена': 100}, 'помидоры': {'количество':20, 'цена': 200}, 'картофель': {'количество':100, 'цена': 35}, 'лук': {'количество':30, 'цена': 25}}
+dict8 = {i: dict7[i]['цена']*dict7[i]['количество'] for i in dict7}
+print(dict8)

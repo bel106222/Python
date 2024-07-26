@@ -1,0 +1,84 @@
+#Задание
+#Создайте программу, которая запрашивает у пользователя ввод 
+#двух чисел и знак метематической операции (+, -, *, /).
+#Программа длолжна выполнить операцию с введёнными числами и 
+#вывести результат. Однако, необходимо предусмотреть обработку
+#следующих исключений:
+#1. Если пользователь вводит не числа, программа должна выдать
+#сообщение об ошибке и попросить ввести числа снова.
+#2. Если пользователь вводит деление на ноль, программа должна
+#вывести сообщение об ошибке и попросить ввести второе число
+#отличное от нуля.
+#3. Если пользователь вводит неверный знак метематической
+#операции, программа должна выдать сообщение об ошибке и
+#попросить ввести знак метематической операции снова.
+
+class OperationError(Exception):
+     def __init__(self, message):
+         self.message = message
+
+class NumberError(Exception):
+     def __init__(self, message):
+         self.message = message
+         
+def get_numbers():
+    num = []
+    number1 = input('Введите первое число:\n>')
+    num.append(number1)
+    number2 = input('Введите второе число:\n>')
+    num.append(number2)
+    return num
+
+def show_error(error):
+    print('Произошла ошибка:', error, '\nПовторите ввод!')
+
+NumberErrorString = 'Введено нечисловое значение!'
+OperationErrorString = 'Введена некорректная операция!'
+ZerroErrorString = 'Деление на ноль невозможно!'
+
+while True:
+    try:
+        numbers = get_numbers()
+        if (not numbers[0].isnumeric()) or (not numbers[1].isnumeric()):
+            raise NumberError(NumberErrorString)
+        else:
+            numbers[0] = int(numbers[0])
+            numbers[1] = int(numbers[1])
+            break
+    except NumberError as e:
+        show_error(e)
+    finally:
+        print(f'Первое число: {numbers[0]}, второе число: {numbers[1]}')
+
+while True:
+    try:
+        operation = input('Введите оператор (+, -, *, /):\n>')
+        if (operation != '+') and (operation != '-') and (operation != '*') and (operation != '/'):
+            raise OperationError(OperationErrorString)
+        else:
+            break
+    except OperationError as e:
+        show_error(e)
+    finally:
+        print('Введённая операция:', operation)
+
+if operation == '+':
+    print(f'{numbers[0]} + {numbers[1]} = {numbers[0] + numbers[1]}')
+elif operation == '-':
+    print(f'{numbers[0]} - {numbers[1]} = {numbers[0] - numbers[1]}')
+elif operation == '*':
+    print(f'{numbers[0]} * {numbers[1]} = {numbers[0] * numbers[1]}')
+elif operation == '/':
+    try:
+        if numbers[1] == 0:
+            raise ZeroDivisionError('Деление на ноль невозможно!')
+    except ZeroDivisionError as e:
+        show_error(e)
+        while True:
+            number2 = input('Введите второе число:\n>')
+            if number2.isnumeric():
+                numbers[1] = int(number2)
+                break
+            else:
+                show_error(ZerroErrorString)
+    print(f'{numbers[0]} / {numbers[1]} = {numbers[0] / numbers[1]}')

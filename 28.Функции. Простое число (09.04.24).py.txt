@@ -1,0 +1,84 @@
+# 1. Проверяем простое ли число через функцию
+# 2. Функция проверки на счастливое число, двухсторонняя
+# обработка цикла к середине.
+# 3. Функция вывода нечётных чисел из из диапазона
+# 4. Функции расчёта площади и периметра окружности.
+# 5. Вызов функции из функции
+##################################################
+# def simple(number):
+#     bool = True
+#     for i in range(2, number):
+#         if number % i == 0:
+#             bool = False
+#     return bool
+
+# n = int(input('Введите число:\n>'))
+# print('Простое ли это число?', simple(n))
+##################################################
+# def happy(number):
+
+#     left = 0
+#     right = 0
+    
+#     if number.isnumeric():
+#         if len(number) % 2 == 0:
+#             for i in range(len(number)):
+#                 left += int(number[i])
+#                 right += int(number[-i - 1])
+#             if left == right:
+#                 return True
+#         else:
+#             print('Введённое число не может быть счасливым!')
+#     else:
+#         print('Введённое значение не является числом!')
+    
+#     return False
+
+# n = input('Введите число:\n>')
+# print('Счастливое ли это число?', happy(n))
+##################################################
+# def odd(number1, number2):
+#     for i in range(number1, number2 + 1):
+#         if i % 2 != 0:
+#             print('Это нечётное:', i)
+
+# n1 = int(input('Введите первое число:\n>'))
+# n2 = int(input('Введите первое число:\n>'))
+# odd(n1,n2)
+##################################################
+# def square(diameter):
+#     return ((diameter/2)*(diameter/2)) * 3.14
+
+# def perimetr(diameter):
+#     return diameter * 3.14
+
+# cont = True
+# while cont:
+    
+#     strn = input('Введите диаметр окружности (или \'выход\' для останова):\n>')
+    
+#     if strn == 'выход':
+#         print('Пока!')
+#         break
+#     else:
+        
+#         if strn.isnumeric():
+#             print('Выберите действие:\n1. Площадь окружности\n2. Периметр окружности')
+#             choice = int(input('>'))
+            
+#             if choice == 1:
+#                 print('Площадь окружности:', square(int(strn)))
+#             elif choice == 2:
+#                 print('Периметр окружности:', perimetr(int(strn)))
+                
+#         else:
+#             print('Введённое значение не является числом!')
+##################################################
+def count_symb(string):
+    return len(string)
+
+def name():
+    strn = input('Введи имя:\n>')
+    print (f'Привет, {strn}! Твоё имя состоит из {count_symb(strn)} букв.')
+
+name()

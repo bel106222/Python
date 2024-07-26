@@ -1,0 +1,42 @@
+#Задание 3
+#К уже реализованному классу «Стадион» добавьте
+#возможность упаковки и распаковки данных с использованием json.
+
+import json
+
+class Stadium:
+    def __init__(self, name, capacity, type):
+        self.name = name
+        self.capacity = capacity
+        self.type = type
+
+    def __str__(self):
+        return f'Стадион: {self.name}, Вместимость: {self.capacity}, Тип: {self.type}'
+
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'capacity': self.capacity,
+            'type': self.type
+                }
+
+    def to_json(self):
+        with open('stadium.json', 'w') as file:
+            json.dump(self.to_dict(), file, indent = 4)
+            
+stadium1 = Stadium('Казань-Арена', 15000, 'Футбольный')
+stadium2 = Stadium('Ставрополь-Арена', 2000, 'Хоккейный')
+print(f'Стадион №1: {stadium1}')
+print(f'Стадион №2: {stadium2}\n*******************************')
+
+stadium1.to_json()
+with open('stadium.json', 'r') as file:
+    data = json.load(file)
+stadium3 = Stadium(data['name'], data['capacity'], data['type'])
+print(f'Стадион №3: {stadium3}')
+***********************************stadium.json****************************************
+{
+    "name": "\u041a\u0430\u0437\u0430\u043d\u044c-\u0410\u0440\u0435\u043d\u0430",
+    "capacity": 15000,
+    "type": "\u0424\u0443\u0442\u0431\u043e\u043b\u044c\u043d\u044b\u0439"
+}

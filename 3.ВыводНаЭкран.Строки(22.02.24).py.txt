@@ -1,0 +1,16 @@
+# n = input('enter two-digit number: ')
+# print(n[0])
+# print(n[1])
+#####################################
+# n = input('enter 3-digit number: ')
+# print(n[0])
+# print(n[1])
+# print(n[2])
+# print('summa =', int(n[0]) + int(n[1]) + int(n[2]))
+#####################################
+# n1 = input('enter 1 number: ')
+# n2 = input('enter 2 number: ')
+# print(n1 + n2)
+#####################################
+t = input('enter temp (C): ')
+print('temp in F =', int(t) * 9 / 5 + 32)

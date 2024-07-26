@@ -1,0 +1,169 @@
+# Задание:
+# Управление финансами пользователя с использованием
+# инкапсуляции и полиморфизма
+# Описание:
+# Создайте класс "Account"(Счёт) для управления финансами
+# пользователя. Класс должен иметь атрибуты "balance"(баланс)
+# и методы для пополнения счёта, снятия средств и вывода
+# текущего баланса. Используйте инкапсуляцию для защиты
+# данных баланса от прямого доступа извне.
+# Создайте несколько подклассов с различными методами
+# расчёта комиссии при снятии средств: "RegularAccount"
+# (обычный счёт), "PremiumAccount"(премиум счёт) и
+# "SavingsAccount"(сберегательный счёт). Каждый из этих
+# классов должен переопределять метод снятия средств таким
+# образом, чтобы комиссия составляла различный процент от
+# суммы снятия.
+# Требования:
+# 1.Создать класс "Account" с атрибутом "balance" и методами
+# для управления счётом: "deposit()" (пополнение счёта), "withdraw()"
+# (снятие средств) и "chek_balance()" (проверка баланса).
+# 2.Использовать инкапсуляцию для защиты атрибута "balance".
+# 3.Создать подклассы "RegularAccount", "PremiumAccount" и
+# "SavingsAccount", каждый из которых будет иметь свой метод
+# "withdraw()", рассчитывающий комиссию при снятии средств.
+
+import os # импортируем модуль os для функции очистки консоли
+
+class Account: # родительский класс "Account"
+    
+    def __init__(self, balance = 0): # конструктор класса
+        self.__balance = balance # инициализация приватного атрибута "balance"
+
+    def deposit(self, amount): # метод для пополнения счёта
+        self.__balance += amount
+
+    def withdraw(self, amount): # метод для снятия средств
+        if amount > self.__balance:
+            print("Недостаточно средств на счете! Пополните баланс.")
+            return False # возвращаем False, если транзакция не удалась
+        else:
+            self.__balance -= amount
+            return True # возвращаем True, если транзакция прошла успешно
+
+    def check_balance(self): # метод для получения приватного атрибута "balance"
+        return self.__balance 
+
+class RegularAccount(Account): # дочерний класс для обычного счёта
+    
+    def withdraw(self, amount): # переопределение метода "withdraw()"
+        if super().withdraw(amount): # вызов метода "withdraw()" из родительского класса
+            print("Комиссия при снятии средств с обычного счёта 0%")
+            return True # возвращаем True, если транзакция прошла успешно
+        else:
+            return False # возвращаем False, если транзакция не удалась
+
+class PremiumAccount(Account): # дочерний класс для премиум счёта
+    
+    def withdraw(self, amount): # переопределение метода "withdraw()"
+        percent = amount * 0.05 # вычисляем процент комиссии
+        amount += percent # добавляем комиссию к сумме
+        if super().withdraw(amount): # вызов метода "withdraw()" из родительского класса
+            print("Комиссия при снятии средств с премиум счёта 5% и составляет", percent)
+            return True # возвращаем True, если транзакция прошла успешно
+        else:
+            return False # возвращаем False, если транзакция не удалась
+        
+class SavingsAccount(Account): # дочерний класс для сберегательного счёта
+    
+    def withdraw(self, amount): # переопределение метода "withdraw()"
+        percent = amount * 0.02 # вычисляем процент комиссии
+        amount += percent # добавляем комиссию к сумме
+        if super().withdraw(amount): # вызов метода "withdraw()" из родительского класса
+            print("Комиссия при снятии средств с сберегательного счёта 2% и составляет", percent)
+            return True # возвращаем True, если транзакция прошла успешно
+        else:
+            return False # возвращаем False, если транзакция не удалась
+
+def cls(): # функция очистки консоли
+    os.system('cls' if os.name=='nt' else 'clear')
+
+def pause(): # функция ожидания нажатия клавиши
+    input('Нажмите Enter для продолжения...')
+
+def mainMenu(accounts): # главное меню, получающее список счетов
+    while True:
+        cls()
+        print('\"Управление финансами\":')
+        print('1. Вывод информации о счетах.')
+        print('2. Пополнение баланса.')
+        print('3. Снятие средств.')
+        print('0. Выход.')
+        err = False
+        choice = input('>')
+        if choice.isnumeric():
+            choice = int(choice)
+            if choice == 1:
+                showAccounts(accounts)
+                pause()
+            elif choice == 2:
+                accounts[typeAccount()].deposit(currentAmount())
+                showAccounts(accounts)
+                pause()
+            elif choice == 3:
+                if accounts[typeAccount()].withdraw(currentAmount()):
+                    showAccounts(accounts)
+                pause()
+            elif choice == 0:
+                print('Пока.')
+                break
+            else:
+                err = True
+        else:
+            err = True
+        if err:
+            print('Неверный ввод! Попробуйте снова.')
+
+def showAccounts(accounts): # функция для вывода информации о счетах
+    print(f'Баланс обычного счета: {accounts[0].check_balance()}')
+    print(f'Баланс премиум счета: {accounts[1].check_balance()}')
+    print(f'Баланс сберегательного счета: {accounts[2].check_balance()}')
+    
+def typeAccount(): # функция для выбора вида счета
+    while True:
+        print('Выберете счёт:')
+        print('1. Обычный счёт.')
+        print('2. Премиум счёт.')
+        print('3. Сберегательный счёт.')
+        err = False
+        choice = input('>')
+        if choice.isnumeric():
+            choice = int(choice)
+            if choice == 1:
+                return 0
+            elif choice == 2:
+                return 1
+            elif choice == 3:
+                return 2
+            else:
+                err = True
+        else:
+            err = True
+        if err:
+            print('Неверный ввод! Попробуйте снова.')
+
+def currentAmount(): # функция для ввода и проверки текущей суммы
+    while True:
+        print('Введите сумму:')
+        err = False
+        choice = input('>')
+        if choice.isnumeric():
+            choice = int(choice)
+            if choice > 0:
+                return choice
+            else:
+                err = True
+        else:
+            err = True
+        if err:
+            print('Неверный ввод! Попробуйте снова.')
+
+# main()
+lst = [] # создаем список для хранения счетов
+regularAcc = RegularAccount() # создаем экземпляр для обычного счёта
+lst.append(regularAcc) # добавляем его в список
+premiumAcc = PremiumAccount() # создаем экземпляр для премиум счёта
+lst.append(premiumAcc) # добавляем его в список
+savingsAcc = SavingsAccount() # создаем экземпляр для сберегательного счёта
+lst.append(savingsAcc) # добавляем его в список
+mainMenu(lst) # вызываем главное меню

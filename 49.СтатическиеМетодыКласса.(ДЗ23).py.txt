@@ -1,0 +1,180 @@
+# Задание 1
+# К уже реализованному классу «Дробь» добавьте
+# статический метод, который при вызове возвращает
+# количество созданных объектов класса «Дробь».
+
+class fraction:
+
+    count = 0
+    
+    def __init__(self, numerator, denominator):
+        self.numerator = numerator
+        self.denominator = denominator
+        fraction.count += 1
+        print(f'Создана {fraction.count}-я дробь: {self.numerator}/{self.denominator}')
+
+    def __str__(self):
+        return f'{self.numerator}/{self.denominator}'
+
+    @staticmethod
+    def get_count():
+        return fraction.count
+        
+    def get_numerator(self):
+        return self.numerator
+
+    def get_denominator(self):
+        return self.denominator
+
+    def set_numerator(self, numerator):
+        self.numerator = numerator
+
+    def set_denominator(self, denominator):
+        self.denominator = denominator
+
+    def add(self, other):
+        new_numerator = self.numerator * other.denominator + other.numerator * self.denominator
+        new_denominator = self.denominator * other.denominator
+        lst = reduction(new_numerator, new_denominator)
+        return fraction(lst[0], lst[1])
+
+    def sub(self, other):
+        new_numerator = self.numerator * other.denominator - other.numerator * self.denominator
+        new_denominator = self.denominator * other.denominator
+        lst = reduction(new_numerator, new_denominator)
+        return fraction(lst[0], lst[1])
+
+    def mul(self, other):
+        new_numerator = self.numerator * other.numerator
+        new_denominator = self.denominator * other.denominator
+        lst = reduction(new_numerator, new_denominator)
+        return fraction(lst[0], lst[1])
+
+    def div(self, other):
+        new_numerator = self.numerator * other.denominator
+        new_denominator = self.denominator * other.numerator
+        lst = reduction(new_numerator, new_denominator)
+        return fraction(lst[0], lst[1])
+
+def reduction(new_numerator, new_denominator):
+    lst = []
+    for i in range(2, new_numerator + 1):
+        if new_numerator % i == 0 and new_denominator % i == 0:
+            new_numerator //= i
+            new_denominator //= i
+    lst.append(new_numerator)
+    lst.append(new_denominator)
+    return(lst)
+
+print('ЗАДАНИЕ 1')
+fract1 = fraction(5, 6)
+fract2 = fraction(3, 4)
+
+print(f'{fract1} + {fract2} = {fract1.add(fract2)}')
+print(f'{fract1} * {fract2} = {fract1.mul(fract2)}')
+print(f'{fract1} - {fract2} = {fract1.sub(fract2)}')
+print(f'{fract1} / {fract2} = {fract1.div(fract2)}')
+
+print(f'Количество созданных объектов класса «Дробь»: {fraction.get_count()}')
+###################################################################
+# Задание 2
+# Создайте класс для конвертирования температуры из
+# Цельсия в Фаренгейт и наоборот. У класса должно быть
+# два статических метода: для перевода из Цельсия в 
+# Фаренгейт и для перевода из Фаренгейта в Цельсий. Также
+# класс должен считать количество подсчетов температурыи
+# возвращать это значение с помощью статического метода.
+
+class tConvert:
+
+    count = 0
+
+    @staticmethod
+    def C2F(C):
+        F = C * 1.8 + 32
+        tConvert.count += 1
+        return F
+
+    @staticmethod
+    def F2C(F):
+        C = (F - 32) / 1.8
+        tConvert.count += 1
+        return C
+
+    @staticmethod
+    def get_count():
+        return tConvert.count
+        
+print('\nЗАДАНИЕ 2')
+tempC = int(input('Введите температуру в градусах Цельсия:\n>'))
+tempF = int(input('Введите температуру в градусах по Фаренгейту:\n>'))
+print(f'Перевод из Цельсия в Фаренгейт: {tConvert.C2F(tempC)}')
+print(f'Перевод из Фаренгейта в Цельсий: {tConvert.F2C(tempF)}')
+print(f'Количество конвертаций температуры: {tConvert.get_count()}')
+#####################################################################
+# Задание 3
+# Создайте класс для перевода из метрической системы
+# в английскую и наоборот. Функциональность необходимо
+# реализовать в виде статических методов. Обязательно
+# реализуйте перевод мер длины.
+
+class metric_english_convert:
+
+    def meter2feet(meter):
+        feet = meter * 3.28084
+        return feet
+
+    def feet2meter(feet):
+        meter = feet / 3.28084
+        return meter
+        
+    def meter2inch(meter):
+        inch = meter * 39.3701
+        return inch
+        
+    def inch2meter(inch):
+        meter = inch / 39.3701
+        return meter
+        
+    def meter2yard(meter):
+        yard = meter * 1.09361
+        return yard
+        
+    def yard2meter(yard):
+        meter = yard / 1.09361
+        return meter
+        
+    def meter2mile(meter):
+        mile = meter * 0.000621371
+        return mile
+        
+    def mile2meter(mile):
+        meter = mile / 0.000621371
+        return meter
+        
+    def meter2nauticalmile(meter):
+        nauticalmile = meter * 0.000539957
+        return nauticalmile
+
+    def nauticalmile2meter(nauticalmile):
+        meter = nauticalmile / 0.000539957
+        return meter
+        
+print('\nЗАДАНИЕ 3')
+dist1 = int(input('Введите расстояние в метрах:\n>'))
+dist2 = int(input('Введите расстояние в футах:\n>'))
+dist3 = int(input('Введите расстояние в дюймах:\n>'))
+dist4 = int(input('Введите расстояние в ярдах:\n>'))
+dist5 = int(input('Введите расстояние в милях:\n>'))
+dist6 = int(input('Введите расстояние в морских милях:\n>'))
+print(f'{dist1} метров = {metric_english_convert.meter2feet(dist1)} футов')
+print(f'{dist1} метров = {metric_english_convert.meter2inch(dist1)} дюймов')
+print(f'{dist1} метров = {metric_english_convert.meter2yard(dist1)} ярдов')
+print(f'{dist1} метров = {metric_english_convert.meter2mile(dist1)} миль')
+print(f'{dist1} метров = {metric_english_convert.meter2nauticalmile(dist1)} морских миль')
+print(f'{dist2} футов = {metric_english_convert.feet2meter(dist2)} метров')
+print(f'{dist3} дюймов = {metric_english_convert.inch2meter(dist3)} метров')
+print(f'{dist4} ярдов = {metric_english_convert.yard2meter(dist4)} метров')
+print(f'{dist5} миль = {metric_english_convert.mile2meter(dist5)} метров')
+print(f'{dist6} морских миль = {metric_english_convert.nauticalmile2meter(dist6)} метров')
+###########################################################################

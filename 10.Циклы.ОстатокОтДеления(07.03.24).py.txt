@@ -1,0 +1,51 @@
+# for i in range(5):
+#     print(i)
+# for i in range(1,5):
+#     print(i)
+# for i in range(1,10,3):
+#     print(i)
+###################################################
+# number1 = int(input("Enter first number:\n>"))
+# number2 = int(input("Enter second number:\n>"))
+# for i in range(number1, number2+1):
+#     print(i)
+###################################################
+# number1 = int(input("Enter first number:\n>"))
+# number2 = int(input("Enter second number:\n>"))
+# for i in range(number1, number2+1):
+#     if i % 2 == 1: 
+#         print(i)
+###################################################
+# number1 = int(input("Enter first number:\n>"))
+# number2 = int(input("Enter second number:\n>"))
+# if number1 % 2 == 1:
+#     number1+=1
+# for i in range(number1, number2+1, 2):
+#     print(i)
+###################################################
+# number1 = int(input("Enter first number:\n>"))
+# number2 = int(input("Enter second number:\n>"))
+# if number1 > number2:
+#     for i in range(number1, number2 - 1, -1):
+#         print(i)
+# else:
+#     for i in range(number2, number1 - 1, -1):
+#         print(i)
+###################################################
+# number1 = int(input("Enter first number:\n>"))
+# number2 = int(input("Enter second number:\n>"))
+# if number1 > number2:
+#     buf = number1
+#     number1 = number2
+#     number2 = buf
+# for i in range(number1, number2+1):
+#      if i % 2 == 1: 
+#          print(i)
+###################################################
+number1 = int(input("Enter first number:\n>"))
+number2 = int(input("Enter second number:\n>"))
+for i in range(number1, number2):
+    if i % 2 == 1:
+        print(i, 'это нечётное, его куб =', i**3)
+    else:
+        print(i, 'это чётное, его квадрат =', i**2) 

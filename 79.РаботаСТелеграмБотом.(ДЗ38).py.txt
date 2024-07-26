@@ -1,0 +1,165 @@
+from collections.abc import ByteString
+from typing import Text
+import telebot
+from telebot import version
+import datetime
+import pytz
+import platform
+import sys
+import time
+import pyqrcode
+from io import BytesIO
+import json
+
+import os
+from PIL import Image, ImageEnhance, ImageFilter #ставить pillow
+
+#bel106222_bot
+token = "7320577468:AAG3xDtO-olsSh5_AQBqfhKz33n8othgybU"
+bot = telebot.TeleBot(token)
+
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.from_user.id, 'Рад приветствовать Вас в своём телеграм-боте, ' + message.chat.first_name + '!')
+    bot.send_message(message.from_user.id, 'В рабте вы мжете использовать следующие команды:\n/start\n/info\n/help\n/QR\n/questions')
+    if os.path.exists('stcr.png'):
+        sticker = open('stcr.png','rb')
+        bot.send_sticker(message.chat.id, sticker)
+        sticker.close()
+    else:
+        bot.send_message(message.from_user.id,':-)')
+        
+
+@bot.message_handler(commands=['info'])
+def send_info(message):
+    python_version = platform.python_version()
+    telebot_version = version.__version__
+    tz = pytz.timezone('Europe/Moscow')
+    current_time = datetime.datetime.now().astimezone(tz).strftime("%H:%M:%S")
+    end_time = time.time()
+    uptime = "{:.2f}".format(end_time - start_time)
+
+    bot.send_message(message.from_user.id, 'Автор: Беляев Д.А.')
+    bot.send_message(message.from_user.id, f'Версия Python: {str(python_version)}')
+    bot.send_message(message.from_user.id, f'Версия Telebot: {str(telebot_version)}')
+    bot.send_message(message.from_user.id, f'Текущее время: {str(current_time)}')
+    bot.send_message(message.from_user.id, f'Время работы бота: {str(uptime)} сек.')
+
+@bot.message_handler(commands=['help'])
+def help_info(message):
+    bot.send_message(message.from_user.id, 'Список команд:\n/start - приветствие, начало работы\n/info - общая информация\n/help - описание команд\n/QR - создание QR-кода бота\n/questions - список вопросов')
+
+@bot.message_handler(commands=['questions'])
+def questions(message):
+    for key, value in questions.items():
+        bot.send_message(message.from_user.id, value)
+
+@bot.message_handler(commands=['QR'])
+def generate_QR(message):
+    bot_name = bot.get_me().username
+    QR_data = f'https://t.me/{bot_name}'
+    QR1 = pyqrcode.create(QR_data)
+    stream = BytesIO()
+    QR1.png(stream, scale=16)
+    stream.seek(0)
+    bot.send_photo(message.from_user.id, photo=stream)
+      
+@bot.message_handler(content_types=['text'])
+def getMessages(message):
+
+    answer = None
+    for key, value in questions.items():
+        if message.text == value:
+            answer = key
+    
+    if answer != None:
+        bot.send_message(message.from_user.id, answer)
+    else:
+        bot.send_message(message.from_user.id, "Извини, я не совсем тебя понимаю")
+    
+    QR_data = message.text
+    QR1 = pyqrcode.create(QR_data, encoding='utf-8')
+    stream = BytesIO()
+    QR1.png(stream, scale=16)
+    stream.seek(0)
+    bot.send_photo(message.from_user.id, photo=stream)
+    
+    # if message.text == "Привет!" or message.text == "Привет." or message.text == "Привет":
+    #     bot.send_message(message.from_user.id, "Как у тебя дела?")
+    # elif message.text == "Хорошо":
+    #     bot.send_message(message.from_user.id, "Рад за тебя!")
+    # elif message.text == "Сколько сейчас времени?":
+    #     tz = pytz.timezone('Europe/Moscow')
+    #     current_time = datetime.datetime.now().astimezone(tz).strftime("%H:%M:%S")
+    #     bot.send_message(message.from_user.id, str(current_time))
+    # elif message.text == "А я за тебя!":
+    #     bot.send_message(message.from_user.id, "Благодарю, вы отличный друг")
+    # else:
+    #     bot.send_message(message.from_user.id, "Извини, я не совсем тебя понимаю")
+
+
+def transform_image(filename,variant):
+    source_image = Image.open(filename)
+    if variant == 1:
+        enhanced_image = source_image.filter(ImageFilter.EMBOSS)
+    elif variant == 2:
+        enhanced_image = source_image.filter(ImageFilter.BoxBlur(33))
+    elif variant == 3:
+        enhanced_image = source_image.filter(ImageFilter.CONTOUR)
+    elif variant == 4:
+        enhanced_image = source_image.filter(ImageFilter.FIND_EDGES)
+    enhanced_image = enhanced_image.convert('RGB')
+    width = enhanced_image.size[0]
+    height = enhanced_image.size[1]
+
+    enhanced_image = enhanced_image.resize((width // 2, height // 2))
+    enhanced_image.save(filename)
+    return filename
+
+
+@bot.message_handler(content_types=['photo'])
+def resend_photo(message):
+
+    for i in range(4):
+        
+        file_id = message.photo[-1].file_id
+        filename = download_file(bot, file_id)
+        
+        if i > -1:
+            bot.send_message(message.from_user.id, 'Вариант ' + str(i+1))
+            transform_image(filename,i+1)
+            image = open(filename, 'rb')
+            bot.send_photo(message.chat.id, image)
+            image.close()
+        
+        if os.path.exists(filename):
+            os.remove(filename)
+
+
+def download_file(bot,file_id):
+    file_info = bot.get_file(file_id)
+    downloaded_file = bot.download_file(file_info.file_path)
+    filename = file_id + file_info.file_path
+    filename = filename.replace('/', '_')
+    with open(filename,'wb') as f:
+        f.write(downloaded_file)
+    return filename
+
+
+with open('data.json', "r", encoding='utf-8') as file:
+    questions = json.load(file)
+    
+start_time = time.time()
+bot.polling(none_stop=True, interval=0)
+*******************************************data.json**************************************
+{
+    "Здравствуй!": "Привет!",
+    "Отлично!": "Как дела?",
+    "Просто - Бот.": "Как тебя зовут?",
+    "Я - телеграм-бот.": "Кто ты?",
+    "Могу ответить на несколько вопросов": "Что ты можешь?",
+    "Сам не знаю, мне не сказали": "Где ты находишься?"
+}
+********************************************stcr.png**************************************
+512x512

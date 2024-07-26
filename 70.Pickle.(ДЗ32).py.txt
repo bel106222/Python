@@ -1,0 +1,111 @@
+#Задание 2
+#Есть некоторый словарь, который хранит названия
+#музыкальных групп(исполнителей) и альбомов. Название
+#группы используется в качестве ключа, название
+#альбомов в качестве значения. Необходимо реализовать:
+#добавление данных, удаление данных, поиск данных,
+#редактирование данных, сохранение и загрузку данных
+#(используя упаковку и распаковку (pickle).
+import os
+import pickle
+
+groups = {'Metallica' : 'Kill\'em all', 'Кино' : 'Группа крови', 'Depeche mode' : 'Violator', 'AC DC': 'Black in black'}
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+def pause():
+    input('Нажмите Enter для продолжения...')
+
+def displayDict(dict):
+    if len(dict)==0:
+        print('Записи отсутствуют.')
+    else:
+        count = 0
+        for i in dict:
+            count += 1
+            print(f'{count}. {i} - {dict[i]}')
+
+def add_data(groups):
+    group = input('Введите название группы: ')
+    album = input('Введите название альбома: ')
+    groups[group] = album
+    print('Ok.')
+
+def delete_data(groups):
+    group = input('Введите название группы: ')
+    del groups[group]
+    print('Ok.')
+
+def search_data(groups):
+    group = input('Введите название группы: ')
+    print(groups[group])
+
+def edit_data(groups):
+    group = input('Введите название группы: ')
+    album = input('Введите название альбома: ')
+    groups[group] = album
+    print('Ok.')
+
+def save_data(groups):
+    with open('data.pikle', 'wb') as file:
+        pickle.dump(groups, file)
+    print('Ok.')
+
+def load_data(groups):
+    with open('data.pikle', 'rb') as file:
+        groups = pickle.load(file)
+    print('Ok.')
+    return groups
+
+def mainMenu(groups):
+    while True:
+        cls()
+        print('Словарь: \"ИСПОЛНИТЕЛИ И АЛЬБОМЫ\":')
+        print('1. Вывод словаря.')
+        print('2. Добавление записи.')
+        print('3. Редактирование записи.')
+        print('4. Удаление записи.')
+        print('5. Поиск записи.')
+        print('6. Запись данных в файл.')
+        print('7. Загрузка данных из файла.')
+        print('8. Выход.')
+        err = False
+        choice = input('>')
+        if choice.isnumeric():
+            choice = int(choice)
+            if choice == 1:
+                displayDict(groups)
+                pause()
+            elif choice == 2:
+                add_data(groups)
+                pause()
+            elif choice == 3:
+                edit_data(groups)
+                pause()
+            elif choice == 4:
+                delete_data(groups)
+                pause()
+            elif choice == 5:
+                search_data(groups)
+                pause()
+            elif choice == 6:
+                save_data(groups)
+                pause()
+            elif choice == 7:
+                groups = load_data(groups)
+                pause()
+            elif choice == 8:
+                print('Пока.')
+                break
+            else:
+                err = True
+        else:
+            err = True
+        if err:
+            print('Неверный ввод! Попробуйте снова.')
+
+# main()
+mainMenu(groups)
+***********************************data.pickle****************************************
+��

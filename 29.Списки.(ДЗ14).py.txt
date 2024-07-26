@@ -1,0 +1,47 @@
+import random
+# Задание 5
+# Напишите функцию, которая получает два списка в
+# качестве параметра и возвращает список, содержащий
+# элементы обоих списков.
+print('ЗАДАНИЕ 5')
+def lst_add(list1, list2):
+    return list1 + list2
+
+lst_one = []
+lst_two = []
+lst_thr = []
+number = 15
+for i in range (number):
+    lst_one.append(random.randint(-10, 10))
+    lst_two.append(random.randint(-10, 10))
+print(f'Сгенерирован 1 список:\n{lst_one}')
+print(f'Сгенерирован 2 список:\n{lst_two}\n')
+lst_thr = lst_add(lst_one, lst_two)
+print(f'Список, содержащий элементы обоих списков:\n{lst_thr}')
+################################################################
+# Задание 6
+# Напишите функцию, высчитывающую степень каждого
+# элемента списка целых. Значение для степени передаётся
+# в качестве параметра, список тоже передаётся в качестве
+# параметра. Функция возвращает новый список, 
+# содержащий полученные результаты.
+print('\nЗАДАНИЕ 6')
+def lst_deg(list, degree):
+    buf = []
+    for i in list:
+        tek = 1
+        for j in range(1, degree + 1):
+            tek *= i
+        buf.append(tek)
+    return buf
+
+lst_one = []
+lst_two = []
+number = 15
+dg = int(input('Введите степень:\n>'))
+for i in range (number):
+    lst_one.append(random.randint(-10, 10))
+print(f'Сгенерирован список:\n{lst_one}')
+lst_two = lst_deg(lst_one, dg)
+print(f'Список, содержащий значения, возведённые в степень {dg}:\n{lst_two}')
+################################################################

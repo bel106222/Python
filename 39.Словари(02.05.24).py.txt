@@ -1,0 +1,49 @@
+the_dict = {'0':'A',
+            1:'B',
+            2:'C',
+            3:'D',
+            4:'E'}
+let_a = the_dict['0']
+print(let_a)
+dict2 = {}
+dict2['key'] = 'A'
+print('key' in dict2)
+del dict2['key']
+print(dict2)
+print('key' in dict2)
+for i in the_dict:
+    print(i, the_dict[i])
+for i in the_dict.values():
+    print(i)
+
+print()
+#######################################################################
+# ex = {'eur':1.06, 'rub':0.01, 'jpy':0.001, 'cny':0.5, 'gbp':1.2}
+# cur = input('Введите валюту которую меняем (eur,rub,jpy,cny,gbp): ')
+# qnt = int(input('Введите количество валюты: '))
+# cur2 = input('В какую валюту перевести(eur,rub,jpy,cny,gbp): ')
+# print(ex[cur] * qnt / ex[cur2])
+#######################################################################
+dict3 = {'Вася':25, 'Петя':30, 'Ваня':35, 'Коля':40, 'Витя':45}
+while True:
+    key = input('Введите имя студента ("exit" для выхода): ')
+    if key == 'exit':
+        print('Пока.')
+        break
+    else:
+        flag = False
+        for i in dict3:
+            if i == key:
+                print(f'Возраст {key} - {dict3[i]}')
+                flag = True
+                break
+        if flag == False:
+            flag2 = False
+            for i in dict3:
+                if key in i:
+                    print(f'Возможно Вы имели ввиду {i}?')
+                    print(f'Возраст {i} - {dict3[i]}')
+                    flag2 = True
+                    break
+            if flag2 == False:
+                print('Такого студента нет.')    

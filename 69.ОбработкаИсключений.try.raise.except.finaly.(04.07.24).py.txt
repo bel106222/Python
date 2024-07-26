@@ -1,0 +1,130 @@
+# import json
+# class Plane:
+#     def __init__(self, name, model, year, price):
+#         self.name = name
+#         self.model = model
+#         self.year = year
+#         self.price = price
+
+#     def __str__(self):
+#         return f"Name: {self.name}, Model: {self.model}, Year: {self.year}, Price: {self.price}"
+
+#     def to_dict(self):
+#         return {
+#             "name": self.name,
+#             "model": self.model,
+#             "year": self.year,
+#             "price": self.price
+#                 }
+#     def to_json(self):
+#         return json.dumps(self, default = lambda o: o.__dict__, indent = 4)
+
+# plane1 = Plane("ТУ", "154", 1987, 100)
+# plane2 = Plane("МС", "21", 2023, 150)
+# plane3 = Plane("SSJ", "100", 2020, 100)
+
+# print(plane1)
+# plane_dict = plane1.to_dict()
+
+# with open('plane.json', "w") as file:
+#     json.dump(plane_dict, file, indent=4)
+
+# plane_json = plane2.to_json()
+# print(plane_json)
+ 
+# with open('plane2.json', "w") as file:
+#     json.dump(plane_json, file, indent=4)
+
+# print(plane3)
+# plane_dict = plane3.to_dict()
+
+# with open('plane.json', "w") as file:
+#     json.dump(plane_dict, file, indent=4)
+###########################################################
+# with open('data.json', "r", encoding='utf-8') as file:
+#     dict = json.load(file)
+        
+# count = 0
+# age = 0
+# for i in dict['студенты']:
+#     count += 1
+#     age += i['возраст']
+#     print(i['имя'], end=' ')
+#     print(i['курс'])
+    
+# print(f'Количество студентов: {count}')
+# print(f'Средний возраст студентов: {age/count}')
+#############################################################
+# a = 10
+# b = 0
+# f = 'a'
+# try: 
+#     c = a / b #пытаемся выполнить то, что даёт ошибку
+    
+# except ZeroDivisionError:
+#     c = a
+
+# except Exception as e:
+
+#     print(e)
+
+# else:
+#     print('Ошибок нет')
+
+# finally:
+
+#     print('Продолжаем работу программы')
+    
+# print(c)
+###############################################################
+# class CustomError(Exception):
+#     def __init__(self, message):
+#         self.message = message
+        
+# try:
+#     raise CustomError('Пользовательское исключение')
+# except CustomError as e:
+#     print('Произошла ошибка:', e)
+###############################################################
+class AgeError(Exception):
+     def __init__(self, message):
+         self.message = message
+try:
+    age = int(input('Введите возраст: '))
+    if age < 18:
+        raise AgeError('Возраст не соответствует!')
+except AgeError as e:
+    print('Произошла ошибка:', e, '\nНаложен запрет!')
+finally:
+    print('Ваш возраст:', age)
+
+print('Продолжаем работу программы...'
+*********************************plane.json****************************
+{
+    "name": "SSJ",
+    "model": "100",
+    "year": 2020,
+    "price": 100
+}
+**********************************plane2.json*****************************
+"{\n    \"name\": \"\\u041c\\u0421\",\n    \"model\": \"21\",\n    \"year\": 2023,\n    \"price\": 150\n}"
+**********************************data.json*****************************
+{
+    "студенты": [
+        {
+            "имя": "Анна",
+            "возраст": 20,
+            "курс": "Информатика"
+        },
+        {
+            "имя": "Петр",
+            "возраст": 22,
+            "курс": "Математика"
+        },
+        {
+            "имя": "Мария",
+            "возраст": 21,
+            "курс": "Физика"
+        }
+    ]
+}

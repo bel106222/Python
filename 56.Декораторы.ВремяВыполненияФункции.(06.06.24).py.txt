@@ -1,0 +1,147 @@
+# def decortor(func):
+#     def wrapper():
+#         print("функция-обертка")
+#         func()
+#     return wrapper
+
+# def basic():
+#     print("Основные базовые команды")
+
+# wrapped = decortor(basic)
+# print('Старт программы')
+# basic()
+# wrapped()
+# print('Конец программы')
+# ############################################################
+# def decortor(func):
+#     print('Декоратор')
+#     def wrapper():
+#         print('-- до функции', func.__name__)
+#         func()
+#         print('-- после функции', func.__name__)
+#     return wrapper
+
+# #@decortor
+# def wrapped():
+#     print('--- обёрнутая функция')
+
+# print('- старт программы...')
+# wrapped()
+# print('- конец программы')
+# ############################################################
+# def decorator_1(func):
+#     print('Декоратор 1')
+#     def wrapper():
+#         print('перед функцией от декоратора1')
+#         func()
+#     return wrapper
+
+# def decorator_2(func):
+#     print('Декоратор 2')
+#     def wrapper():
+#         print('перед функцией от декоратора2')
+#         func()
+#     return wrapper
+
+# @decorator_1
+# @decorator_2
+# def basic1():
+#     print('basic1')
+
+# @decorator_1
+# def basic2():
+#     print('basic2')
+
+# print('Старт программы')
+# basic1()
+# basic2()
+# print('Конец программы')
+# ############################################################
+# word = 'Привет мир!'
+# def decorator(func):
+#     def wrapper():
+#         global word
+#         print('-- до функции')
+#         word = 'Hello world!'
+#         func()
+#         print('-- после функции')
+#     return wrapper
+
+# @decorator
+# def basic():
+#     print(word)
+
+# basic()
+# ############################################################
+# import datetime
+# def decorator(func):
+#     def wrapper():
+#         print("********")
+#         func()
+#         print("********")
+#     return wrapper
+
+# def decorator2(func):
+#     def wrapper():
+#         print("--------")
+#         func()
+#         print("--------")
+#     return wrapper
+
+# def showTime():
+#     print(str(datetime.datetime.now())[11:-7:]) # срезом выбираем только часы и минуты из текущего времени
+
+# wrapped = decorator2(decorator(showTime))
+# wrapped()
+# ############################################################
+# Создайте приложение по выпечке пиццы. Каждая пицца содержит разные компоненты.
+# используя механизм декораторов создайте разные пиццы:
+# Маргарита
+# 4 сыра
+# Капричоза
+# Гавайская
+def margarita(func):
+    def wrapper():
+        print('Сыр укладываем на', end=' ')
+        func()
+    return wrapper
+
+def cheese4(func):
+    def wrapper():
+        print('4 вида сыра укладываем на', end=' ')
+        func()
+    return wrapper
+
+def caprichoza(func):
+    def wrapper():
+        print('Оливки укладываем на', end=' ')
+        func()
+    return wrapper
+
+def gavay(func):
+    def wrapper():
+        print('Ананас укладываем на', end=' ')
+        func()
+    return wrapper
+
+@margarita
+def pizza():
+    print('корж')
+
+@cheese4
+def pizza2():
+    print('корж')
+
+@caprichoza
+def pizza3():
+    print('корж')
+
+@gavay
+def pizza4():
+    print('корж')
+
+pizza()
+pizza2()
+pizza3()
+pizza4()
+# ############################################################

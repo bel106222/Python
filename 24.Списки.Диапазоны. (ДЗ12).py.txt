@@ -1,0 +1,103 @@
+# Задание 1
+# Два списка целых заполняются случайными числами. Необходимо:
+# ■ Сформировать третий список, содержащий элементы
+# обоих списков;
+# ■ Сформировать третий список, содержащий элементы
+# обоих списков без повторений;
+# ■ Сформировать третий список, содержащий элементы
+# общие для двух списков;
+# ■ Сформировать третий список, содержащий только
+# уникальные элементы каждого из списков;
+# ■ Сформировать третий список, содержащий только
+# минимальное и максимальное значение каждого из списков.
+
+import random
+lst_one = []
+lst_two = []
+lst_thr = []
+number = 15
+
+for i in range (number):
+    lst_one.append(random.randint(-10, 10))
+    lst_two.append(random.randint(-10, 10))
+print(f'Сгенерирован 1 список:\n{lst_one}')
+print(f'Сгенерирован 2 список:\n{lst_two}\n')
+
+for i in range (number):
+    lst_thr.append(lst_one[i])
+    lst_thr.append(lst_two[i])    
+print(f'Список, содержащий элементы обоих списков:\n{lst_thr}\n')
+
+lst_thr = []
+for i in range (number):
+    double = False
+    for j in range (len(lst_thr)):
+        if lst_one[i] == lst_thr[j]:
+            double = True
+    if double == False:
+        lst_thr.append(lst_one[i])
+for i in range (number):
+    double = False
+    for j in range (len(lst_thr)):
+        if lst_two[i] == lst_thr[j]:
+            double = True
+    if double == False:
+        lst_thr.append(lst_two[i])
+print(f'Список, содержащий элементы обоих списков, без повторений:\n{lst_thr}\n')
+
+lst_thr = []
+for i in range (number):
+    double = False
+    for j in range (len(lst_thr)):
+        if lst_one[i] == lst_thr[j]:
+            double = True
+    if double == False:
+        for j in range (number):
+            if lst_one[i] == lst_two[j]:
+                lst_thr.append(lst_one[i])
+                break
+print(f'Список, содержащий элементы общие для двух списков:\n{lst_thr}\n')
+
+lst_thr = []
+for i in range (number):
+    count = 0
+    for j in range (number):
+        if lst_one[i] == lst_one[j]:
+            count += 1
+    if count == 1:
+        lst_thr.append(lst_one[i])
+for i in range (number):
+    double = False
+    count = 0
+    for j in range (number):
+        if lst_two[i] == lst_two[j]:
+            count += 1
+    if count == 1:
+        for k in range (len(lst_thr)):
+            if lst_two[i] == lst_thr[k]:
+                double = True
+                break
+        if double == False:
+            lst_thr.append(lst_two[i])
+print(f'Список, содержащий только уникальные элементы каждого из списков:\n{lst_thr}\n')
+
+lst_thr = []
+min = lst_one[0]
+max = lst_one[0]
+for i in range (number):
+    if lst_one[i] < min:
+        min = lst_one[i]
+    if lst_one[i] > max:
+        max = lst_one[i]
+lst_thr.append(min)
+lst_thr.append(max)
+min = lst_two[0]
+max = lst_two[0]
+for i in range (number):
+    if lst_one[i] < min:
+        min = lst_two[i]
+    if lst_one[i] > max:
+        max = lst_two[i]
+lst_thr.append(min)
+lst_thr.append(max)
+print(f'Список, содержащий только минимальные и максимальные значения, каждого из списков:\n{lst_thr}\n')

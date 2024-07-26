@@ -1,0 +1,264 @@
+# Задание 1
+# Напишите информационную систему «Сотрудники».
+# Программа должна обеспечивать ввод данных, 
+# редактирование данных сотрудника, удаление сотрудника,
+# поиск сотрудника по фамилии, вывод информации обо всех
+# сотрудниках, указанного возраста, или фамилия которых
+# начинается на указанную букву. Организуйте возможность
+# сохранения найденной информации в файл. Также весь
+# список сотрудников сохраняется в файл (при выходе из
+# программы — автоматически, в процессе исполнения
+# программы — по команде пользователя). При старте
+# программы происходит загрузка списка сотрудников из
+# указанного пользователем файла.
+
+import os # импортируем модуль os для функций проверки наличия файлов и очистки консоли
+
+class employee: #класс сотрудник (ФИО, г/р, должность)
+
+    def __str__(self): # метод для вывода информации о сотруднике
+        return(f'{self.fio[0]} {self.fio[1]} {self.fio[2]},{self.b_date},{self.post}')
+    
+    def input_data(self): #ввод данных сотрудника
+        current_data = inputDataFromUser()
+        self.fio = current_data[0].split() # в этом списке храним ФИО в трех элементах
+        self.b_date = current_data[1] # в этой переменной - год рождения
+        self.post = current_data[2] # в этой переменной - должность
+
+def inputDataFromUser(): # функция для ввода данных сотрудника
+    lst = [] # создаем пустой список
+    fio = input('Введите фамилию сотрудника: ') # вводим фамилию
+    fio += ' ' + input('Введите имя сотрудника: ') # добавляем имя
+    fio += ' ' + input('Введите отчество сотрудника: ') # добавляем отчество
+    lst.append(fio) # добавляем в список ФИО
+    while True: # цикл для ввода года рождения
+        b_date = input('Введите год рождения сотрудника: ')
+        if b_date.isdigit() and int(b_date) > 1900 and int(b_date) < 2010:
+            lst.append(b_date)
+            break
+        else:
+            print('Не корректный ввод. Попробуйте снова.')
+    lst.append(input('Введите должность сотрудника: ')) # добавляем должность
+    return lst # возвращаем список с заполненными пользователем данными
+    
+def cls(): # функция очистки консоли
+    os.system('cls' if os.name=='nt' else 'clear')
+
+def pause(): # функция ожидания нажатия клавиши
+    input('Нажмите Enter для продолжения...')
+
+def loadFromFile(filename): # функция загрузки данных из файла
+    lines = [] # список для считанных строк из файла
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+    empls = [] # список, где каждый элемент - экземпляр класса employee
+    for i in lines: # перебираем строки из файла и заполняем его
+        tmp = i.split(',') # из полученной строки, формируем временный список по разделителю ','
+        emp = employee() # создаем экземпляр класса employee
+        emp.fio = tmp[0].split() # заполняем поля класса даннми, полученными из временного списка
+        emp.b_date = tmp[1]
+        emp.post = tmp[2].strip()
+        empls.append(emp) # добавляем в список, заполенный из строки файла, экземпляр класса employee
+
+    return empls # возвращаем список с экземплярами класса employee
+
+def saveToFile(filename, lst): # функция сохранения данных в файл
+    with open(filename, 'w') as file:
+        file.writelines(lst)
+    print(f'Данные сохранены в файл {filename}')
+    
+def class2str(lst): # функция преобразования списка экземпляров класса в строки
+    strn = []
+    for i in lst:
+        strn.append(i.__str__()+'\n')
+    return strn # возвращаем список строк
+    
+def displayList(lst): # функция вывода списка экземпляров класса на экран
+    if len(lst)==0:
+        print('Сотрудники отсутствуют.')
+    else:
+        count = 0
+        for i in lst:
+            count += 1
+            print(f'{count}. {i.__str__()}')
+
+def addEmployee(lst): # функция добавления экземпляра класса employee в список
+    new_employee = employee()
+    new_employee.input_data()
+    lst.append(new_employee)
+    print('Сотрудник успешно добавлен.')
+
+def editEmployee(lst): # функция редактирования экземпляра класса employee в списке
+    displayList(lst)
+    err = False
+    index = input('Введите номер сотрудника для редактирования:\n>')
+    if index.isnumeric():
+        index = int(index)
+        if index > 0 and index <= len(lst):
+            lst[index-1].input_data()
+            print('Данные изменены.')
+        else:
+            err = True
+    else:
+        err = True
+        
+    if err:
+        print('Такого сотрудника не существует.')
+
+def deleteEmployee(lst): # функция удаления экземпляра класса employee из списка
+    displayList(lst)
+    err = False
+    index = input('Введите номер сотрудника для удаления:\n>')
+    if index.isnumeric():
+        index = int(index)
+        if index > 0 and index <= len(lst):
+            del lst[index-1]
+            print('Сотрудник успешно удален.')
+        else:
+            err = True
+    else:
+        err = True
+        
+    if err:
+        print('Такого сотрудника не существует.')
+
+def findEmployee(lst): # функция поиска экземпляра класса employee по фамилии
+    finded = []
+    secondN = input('Введите фамилию сотрудника для поиска:\n>')
+    for i in lst:
+        if secondN == i.fio[0]:
+            finded.append(i)
+    
+    if len(finded) == 0:
+        print(f'Сотрудники с фамилией {secondN} не найдены.')
+    else:
+        print(f'Найдены сотрудники с фамилией {secondN}:')
+        displayList(finded)
+        wonaSave(finded)
+
+def findByFirstLetter(lst): # функция поиска экземпляра класса employee по первой букве фамилии
+    finded = []
+    firstLetter = input('Введите первую букву фамилии сотрудника для поиска:\n>')
+    for i in lst:
+        if firstLetter.upper() == i.fio[0][0]:
+            finded.append(i)
+
+    if len(finded) == 0:
+        print(f'Сотрудники с фамилией на букву {firstLetter} не найдены.')
+    else:
+        print(f'Найдены сотрудники с фамилией на букву {firstLetter}:')
+        displayList(finded)
+        wonaSave(finded)
+    
+def findEmployeeByAge(lst): # функция поиска экземпляра класса employee по возрасту
+    finded = []
+    err = False
+    age = input('Введите возраст сотрудника для поиска:\n>')
+    if age.isnumeric():
+        age = int(age)
+        if age > 16 and age < 90:
+            for i in lst:
+                if age == 2024 - int(i.b_date):
+                    finded.append(i)
+        else:
+            err = True
+    else:
+        err = True
+        
+    if err:
+        print('Не корректно указан возраст.')
+    else:
+        if len(finded) == 0:
+            print(f'Сотрудники в возрасте {age} лет, не найдены.')
+        else:
+            print(f'Найдены сотрудники в возрасте {age} лет:')
+            displayList(finded)
+            wonaSave(finded)
+
+def wonaSave(lst): # функция сохранения найденных экземпляров класса
+    choise = input('Хотите сохранить результаты поиска в файл? (y/n)\n>')
+    if choise == 'y':
+        saveToFile('result.txt', class2str(lst))
+        
+def mainMenu(current_list): # главное меню
+    while True:
+        cls()
+        print('Информационная система \"СОТРУДНИКИ\":')
+        print('1. Вывод информации обо всех сотрудниках.')
+        print('2. Добавление сотрудника.')
+        print('3. Редактирование сотрудника.')
+        print('4. Удаление сотрудника.')
+        print('5. Поиск сотрудника по фамилии.')
+        print('6. Отбор сотрудников по первой букве фамилии.')
+        print('7. Отбор сотрудников заданного возраста.')
+        print('8. Запись данных в файл.')
+        print('9. Загрузка данных из файла.')
+        print('0. Выход.')
+        err = False
+        choice = input('>')
+        if choice.isnumeric():
+            choice = int(choice)
+            if choice == 1:
+                displayList(current_list)
+                pause()
+            elif choice == 2:
+                addEmployee(current_list)
+                pause()
+            elif choice == 3:
+                editEmployee(current_list)
+                pause()
+            elif choice == 4:
+                deleteEmployee(current_list)
+                pause()
+            elif choice == 5:
+                findEmployee(current_list)
+                pause()
+            elif choice == 6:
+                findByFirstLetter(current_list)
+                pause()
+            elif choice == 7:
+                findEmployeeByAge(current_list)
+                pause()
+            elif choice == 8:
+                if len(current_list)>0:
+                    saveToFile('employees.txt', class2str(current_list))
+                pause()
+            elif choice == 9:
+                name = input('Введите имя файла с данными:\n>')
+                if os.path.exists(name):
+                    current_list = loadFromFile(name)
+                    print(f'Данные из файла {name} успешно загружены.')
+                else:
+                    print('Файл не найден.')
+                pause()
+            elif choice == 0:
+                if len(current_list)>0:
+                    saveToFile('employees.txt', class2str(current_list))    
+                print('Пока.')
+                break
+            else:
+                err = True
+        else:
+            err = True
+        if err:
+            print('Неверный ввод! Попробуйте снова.')
+
+# main()
+if os.path.exists('employees.txt'): # перед запуском программы проверяем наличие файла с данными
+    lst = loadFromFile('employees.txt') # если он есть, загружаем данные в список
+else:
+    lst = [] # если файла нет, создаем пустой список
+mainMenu(lst) # передаём этот список в главное меню
+*********************************employees.txt***********************************
+ЗИванов Иван Иванович,2000,Директор
+Петров Пётр Петрович,1990,Главбух
+Стдоров Сидор Сидорович,2002,Инженер
+Фёдорова Федора Фёдоровна,2005,Уборщица
+Максимов Максим Максимович,1995,Менеджер
+Борисов Борис Борисович,1990,Водитель
+Иванов Василий Алибабаевич,2001,Завхоз
+Пвалов Павел Павлович,1998,Заместитель директора
+*********************************result.txt***************************************
+Петров Пётр Петрович,1990,Главбух
+Пвалов Павел Павлович,1998,Заместитель директора

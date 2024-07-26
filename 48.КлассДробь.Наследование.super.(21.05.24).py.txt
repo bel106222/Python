@@ -1,0 +1,141 @@
+# class City:
+    
+#     def __init__(self, name,region, country, population, post_index, tel_code):
+#         self.name = name
+#         self.region = region
+#         self.country = country
+#         self.population = population
+#         self.post_index = post_index
+#         self.tel_code = tel_code
+
+#     def __str__(self):
+#         return f'{self.name}, {self.region}, {self.country}, {self.population}, {self.post_index}, {self.tel_code}'
+
+#     def get_name(self):
+#         return self.name
+
+#     def get_region(self):
+#         return self.region
+
+#     def get_country(self):
+#         return self.country
+
+#     def get_population(self):
+#         return self.population
+
+#     def get_post_index(self):
+#         return self.post_index
+
+#     def get_tel_code(self):
+#         return self.tel_code
+        
+#     def set_name(self, name):
+#         self.name = name
+
+#     def set_region(self, region):
+#         self.region = region
+
+#     def set_country(self, country):
+#         self.country = country
+        
+#     def set_population(self, population):
+#         self.population = population
+    
+#     def set_post_index(self, post_index):
+#         self.post_index = post_index
+
+#     def set_tel_code(self, tel_code):
+#         self.tel_code = tel_code
+
+# city = City('Москва', 'Московская область', 'Россия', '11300000', '101000', '495')
+
+# print(city)
+# print(city.get_name())
+# print(city.name)
+####################################################################
+# class fraction:
+    
+#     def __init__(self, numerator, denominator):
+#         self.numerator = numerator
+#         self.denominator = denominator
+    
+#     def __str__(self):
+#         return f'{self.numerator}/{self.denominator}'
+
+#     def get_numerator(self):
+#         return self.numerator
+
+#     def get_denominator(self):
+#         return self.denominator
+
+#     def set_numerator(self, numerator):
+#         self.numerator = numerator
+
+#     def set_denominator(self, denominator):
+#         self.denominator = denominator
+
+#     def add(self, other):
+#         new_numerator = self.numerator * other.denominator + other.numerator * self.denominator
+#         new_denominator = self.denominator * other.denominator
+#         lst = reduction(new_numerator, new_denominator)
+#         return fraction(lst[0], lst[1])
+
+#     def sub(self, other):
+#         new_numerator = self.numerator * other.denominator - other.numerator * self.denominator
+#         new_denominator = self.denominator * other.denominator
+#         lst = reduction(new_numerator, new_denominator)
+#         return fraction(lst[0], lst[1])
+
+#     def mul(self, other):
+#         new_numerator = self.numerator * other.numerator
+#         new_denominator = self.denominator * other.denominator
+#         lst = reduction(new_numerator, new_denominator)
+#         return fraction(lst[0], lst[1])
+
+#     def div(self, other):
+#         new_numerator = self.numerator * other.denominator
+#         new_denominator = self.denominator * other.numerator
+#         lst = reduction(new_numerator, new_denominator)
+#         return fraction(lst[0], lst[1])
+    
+# def reduction(new_numerator, new_denominator):
+#     lst = []
+#     for i in range(2, new_numerator + 1):
+#         if new_numerator % i == 0 and new_denominator % i == 0:
+#             new_numerator //= i
+#             new_denominator //= i
+#     lst.append(new_numerator)
+#     lst.append(new_denominator)
+#     return(lst)
+
+# fract1 = fraction(5, 6)
+# fract2 = fraction(3, 4)
+
+# print(f'{fract1} + {fract2} = {fract1.add(fract2)}')
+# print(f'{fract1} * {fract2} = {fract1.mul(fract2)}')
+# print(f'{fract1} - {fract2} = {fract1.sub(fract2)}')
+# print(f'{fract1} / {fract2} = {fract1.div(fract2)}')
+####################################################################
+class Transport():
+    
+    def __init__(self,speed, color):
+        self.speed = speed
+        self.color = color
+
+    def beep(self):
+        print('beep')
+
+class Car(Transport):
+
+    def __init__(self, speed, color, owner):
+        super().__init__(speed, color)
+        self.owner = owner
+
+    def say_owner(self):
+        print(f'Владелец: {self.owner}')
+        
+car1 = Car(120, 'red', 'John')
+car1.speed = 220
+
+print(car1.speed)
+car1.say_owner()
